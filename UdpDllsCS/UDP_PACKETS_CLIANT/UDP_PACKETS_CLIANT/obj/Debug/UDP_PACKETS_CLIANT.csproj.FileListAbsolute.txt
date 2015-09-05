@@ -1,0 +1,5 @@
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\bin\Debug\UDP_PACKETS_CLIANT.dll
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\bin\Debug\UDP_PACKETS_CLIANT.pdb
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Debug\UDP_PACKETS_CLIANT.csprojResolveAssemblyReference.cache
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Debug\UDP_PACKETS_CLIANT.dll
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Debug\UDP_PACKETS_CLIANT.pdb

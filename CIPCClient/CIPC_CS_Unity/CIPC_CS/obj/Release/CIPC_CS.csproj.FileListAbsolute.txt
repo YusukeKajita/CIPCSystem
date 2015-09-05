@@ -1,0 +1,27 @@
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.pdb
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\bin\Release\UDP_LIVESTREAMING.dll
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CLIANT.dll
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CODER.dll
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\bin\Release\UDP_LIVESTREAMING.pdb
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CLIANT.pdb
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CODER.pdb
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.dll
+c:\users\kajita\documents\visual studio 2013\Projects\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.pdb
+C:\Users\KAJITA\Documents\Visual Studio 2013\Projects\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.csprojResolveAssemblyReference.cache
+C:\Users\yozora\Dropbox\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll
+C:\Users\yozora\Dropbox\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.pdb
+C:\Users\yozora\Dropbox\CIPC_CS\CIPC_CS\bin\Release\UDP_LIVESTREAMING.pdb
+C:\Users\yozora\Dropbox\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CLIANT.pdb
+C:\Users\yozora\Dropbox\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CODER.pdb
+C:\Users\yozora\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.csprojResolveAssemblyReference.cache
+C:\Users\yozora\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.dll
+C:\Users\yozora\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.pdb
+C:\Users\KAJITA\Dropbox\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll
+C:\Users\KAJITA\Dropbox\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.pdb
+C:\Users\KAJITA\Dropbox\CIPC_CS\CIPC_CS\bin\Release\UDP_LIVESTREAMING.pdb
+C:\Users\KAJITA\Dropbox\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CLIANT.pdb
+C:\Users\KAJITA\Dropbox\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CODER.pdb
+C:\Users\KAJITA\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.csprojResolveAssemblyReference.cache
+C:\Users\KAJITA\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.dll
+C:\Users\KAJITA\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.pdb

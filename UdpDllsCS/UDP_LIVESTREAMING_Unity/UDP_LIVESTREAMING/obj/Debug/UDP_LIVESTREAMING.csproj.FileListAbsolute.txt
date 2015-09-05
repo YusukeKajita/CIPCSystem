@@ -1,0 +1,9 @@
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\bin\Debug\UDP_LIVESTREAMING.dll
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\bin\Debug\UDP_LIVESTREAMING.pdb
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\bin\Debug\UDP_PACKETS_CLIANT.dll
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\bin\Debug\UDP_PACKETS_CODER.dll
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\bin\Debug\UDP_PACKETS_CLIANT.pdb
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\bin\Debug\UDP_PACKETS_CODER.pdb
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\obj\Debug\UDP_LIVESTREAMING.csprojResolveAssemblyReference.cache
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\obj\Debug\UDP_LIVESTREAMING.dll
+c:\users\yozora\documents\visual studio 2013\Projects\UDP_LIVESTREAMING\UDP_LIVESTREAMING\obj\Debug\UDP_LIVESTREAMING.pdb

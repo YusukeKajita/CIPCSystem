@@ -1,0 +1,10 @@
+c:\users\kajita\documents\visual studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\bin\Debug\UDP_PACKETS_CODER.dll
+c:\users\kajita\documents\visual studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\bin\Debug\UDP_PACKETS_CODER.pdb
+c:\users\kajita\documents\visual studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\obj\Debug\UDP_PACKETS_MAKER.csprojResolveAssemblyReference.cache
+c:\users\kajita\documents\visual studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\obj\Debug\UDP_PACKETS_CODER.dll
+c:\users\kajita\documents\visual studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\obj\Debug\UDP_PACKETS_CODER.pdb
+C:\Users\yozora\Documents\Visual Studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\bin\Debug\UDP_PACKETS_CODER.dll
+C:\Users\yozora\Documents\Visual Studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\bin\Debug\UDP_PACKETS_CODER.pdb
+C:\Users\yozora\Documents\Visual Studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\obj\Debug\UDP_PACKETS_MAKER.csprojResolveAssemblyReference.cache
+C:\Users\yozora\Documents\Visual Studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\obj\Debug\UDP_PACKETS_CODER.dll
+C:\Users\yozora\Documents\Visual Studio 2013\Projects\UDP_PACKETS_CODER\UDP_PACKETS_CODER\obj\Debug\UDP_PACKETS_CODER.pdb
