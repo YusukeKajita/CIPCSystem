@@ -1,0 +1,393 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CentralInterProcessCommunicationServer</name>
+    </assembly>
+    <members>
+        <member name="T:CentralInterProcessCommunicationServer.DebugWindow">
+            <summary>
+            DebugWindow.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            DebugWindow
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.DebugWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.Definitions">
+            <summary>
+            サーバー設定　および　接続時のプロトコル
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.Definitions.CONNECTION_DEMANDS">
+            <summary>
+            接続要求
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.Definitions.CONNECTION_END">
+            <summary>
+            接続終了通知
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.Definitions.CONNECTION_MODE_SEND">
+            <summary>
+            リモートホストのモード　送信
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.Definitions.CONNECTION_MODE_RECEIVE">
+            <summary>
+            リモートホストのモード　受信
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.Definitions.CONNECTION_OK">
+            <summary>
+            返信　ok
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.Definitions.REMOTEHOSTSERVER_PORT">
+            <summary>
+            RemoteHostにポートを分配するサーバのポート　まず初めにここにコネクトする
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.Definitions.TERMINALCONNECTION_PORT">
+            <summary>
+            ターミナルと接続する用のポート番号
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.Definitions.PORT_START_NUMBER">
+            <summary>
+            RemoteHostが使用するポートの最初の番号　これおよび以降のポートを使用する。
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.MinimizedWindow">
+            <summary>
+            MinimizedWindow.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            MinimizedWindow
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.MinimizedWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.myDialog">
+            <summary>
+            myDialog.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            myDialog
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.myDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.RemoteHost">
+            <summary>
+            接続先ホスト
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.RemoteHost.connect_host">
+            <summary>
+            データを接続する宛先。相手のconnect_hostは自分のアドレス
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.RemoteHost.data">
+            <summary>
+            保持しているデータおよび受信したデータの参照　実体を入れないように。
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.#ctor(System.Int32,CentralInterProcessCommunicationServer.DebugWindow,CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="localPort">自分のポート</param>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.Main_Task">
+            <summary>
+            メインタスク。Whileの中にループを、その前に接続確認などの初期化処理を書く。
+            送信モードの場合、リモートホストを設定した場合、そこにデータを渡す。
+            受信モードの場合、データの中身があればそこにデータを送信する。
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.FPSAdjuster">
+            <summary>
+            ＦＰＳ調整用コード　送受信の際に利用する
+            現在非計測形式
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.Connect">
+            <summary>
+            リモートホストと接続します。
+            </summary>
+            <returns>接続先のＩＰエンドポイント</returns>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.disconnect">
+            <summary>
+            接続を切断します。
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.Send">
+            <summary>
+            設定されている宛先に、持っているデータ、受け取ったデータをぶん投げます。
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.Receive">
+            <summary>
+            データをリモートホストから受信します。
+            Exceptionをコメントアウトすることでレシーブのエクセプションをはじきます。
+            現在不使用
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.LiveReceive">
+            <summary>
+            ライブストリーミング受信
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHost.LiveSend">
+            <summary>
+            ライブストリーミング送信
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.IsConnected">
+            <summary>
+            リモートホストとつながっているかどうかを取得します。
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.Name">
+            <summary>
+            リモートホストの名前を取得します。
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.Connect_Name">
+            <summary>
+            データ接続している他ホストの名前を取得します。
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.remoteIP">
+             <summary>
+            接続先のＩＰアドレスを取得します。 
+             </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.remotePort">
+             <summary>
+            接続先のポートを取得します。 
+             </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.ID">
+            <summary>
+            id(使用しているポート番号)を取得します。
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.Fps">
+            <summary>
+            Fpsを設定、取得します。
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.Data">
+            <summary>
+            送受信するデータを取得、設定します。
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.Connection_Mode">
+             <summary>
+            現在のモードを取得します。 
+             </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.RemoteHost.ConnectionHost">
+            <summary>
+            接続するリモートホストを設定します。
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.ConnectionState">
+            <summary>
+            コネクションの形式を設定する列挙型
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.RemoteHostServer.List_remotehost">
+            <summary>
+            現在保持しているリモートホストおよびそのタスクのリスト
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.RemoteHostServer.LstPort">
+            <summary>
+            現在保持しているポートのリスト
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHostServer.update(System.Int32@,System.Boolean@)">
+            <summary>
+            サーバがアクセスされるまで待機し、アクセスされた場合そのメッセージを検査し、その情報に従って
+            ポートを割り振る、もしくは終了します。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.RemoteHostServer.ShutDownDisconnect(System.Int32)">
+            <summary>
+            ポートを指定して強制的にリモートホストを削除します
+            </summary>
+            <param name="port"></param>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection">
+            <summary>
+            terminalとコネクションするホスト
+            2014/10/14 update前まで完了　メモリーストリームの作成　送信形式　プロトコルに注意すること
+            http://dobon.net/vb/dotnet/internet/tcpclientserver.html
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.tcpport">
+            <summary>
+            TCP接続時のポート
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.tcpListener">
+            <summary>
+            TCP接続のリスナー　受け取ったらTCP接続用クライアントをインスタンス化する
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.mytask">
+            <summary>
+            メインタスク
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.CTS">
+            <summary>
+            メインタスクに付随する停止用クラス
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.#ctor">
+            <summary>
+            ターミナル用のコネクションを作成します．
+            使用通信形式はTCPで，使用する応答形式はDeffinitionsに遵守します．
+            使用するタスクは１つで，キャンセラレーショントークンソースを利用します．
+            また，イベントを登録することで各自の要求を非同期に処理することができます．
+            詳しくは開発者に問い合わせてください．
+            kajita yusuke
+            yozora1080@gmail.com
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.Init_TCPlistener">
+            <summary>
+            TCPリスナーの初期化
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.Init_tcpclient">
+            <summary>
+            networkstreamを初期化します．Tcplistenerから取得します．
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.Init_networkstream">
+            <summary>
+            networkstreamを初期化します．TcpClientから取得します．
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.Init_Task">
+            <summary>
+            タスクの初期化　すでに使用時には初期化する
+            初期化の際に計200msの待機時間がある
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.maintask(System.Object)">
+            <summary>
+            メインタスク
+            リスナーが接続要求を受けるまで待機し，それが完了するとTCP接続クライアントを作成しTCP通信を開始する．
+            TCP接続によって情報を受けるたびにそれを解析し，システムにイベントハンドラで命令をします．
+            また，システムの現在の情報を相手クライアントに逐次（フレームを指定可能）送信します．
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.Setup_in_Task">
+            <summary>
+            タスク内で行うループ処理前の初期動作処理　TCPのリスナーはここで待機　タスクを利用しているため，非同期処理となる
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.Update_in_Task">
+            <summary>
+            タスク内で行うループ処理　中身
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.Tcp_Send">
+            <summary>
+            CIPCの状態を送信する
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.TerminalConnection.TerminalConnection.Tcp_Receive">
+            <summary>
+            TCPによる遠隔操作の受付
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.App">
+            <summary>
+            App.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.FileIO`1">
+            <summary>
+            ファイルの読み書きに対応したリストを作成します
+            リストに追加できるのは値型のみです
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.MainWindow">
+            <summary>
+            MainWindow.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.MainWindow.rhServer">
+            <summary>
+            RemoteHostのリストを保有するクラス
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.MainWindow.DCS">
+            <summary>
+            データコネクションを行うインスタンス　ConnectionListを保有する
+            </summary>
+        </member>
+        <member name="F:CentralInterProcessCommunicationServer.MainWindow.debugwindow">
+            <summary>
+            デバッグ用ウィンドウ　各サーバでこのインスタンスの参照を利用してデバッグに出力する
+            </summary>
+        </member>
+        <member name="M:CentralInterProcessCommunicationServer.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CentralInterProcessCommunicationServer.Properties.Resources">
+            <summary>
+              ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.Properties.Resources.ResourceManager">
+            <summary>
+              このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+            </summary>
+        </member>
+        <member name="P:CentralInterProcessCommunicationServer.Properties.Resources.Culture">
+            <summary>
+              厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+              現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+            </summary>
+        </member>
+    </members>
+</doc>
