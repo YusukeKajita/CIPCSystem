@@ -4,6 +4,7 @@
 #define windows_user
 
 #ifdef windows_user
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
 #pragma comment(lib, "ws2_32.lib")
 #endif
@@ -103,7 +104,7 @@ namespace UDP_PACKETS_CODER
 		}
 
 		//receive data
-		std::vector<unsigned char> Receive()
+		std::vector<unsigned char> Receive(int* length)
 		{
 			try{
 				CharanduChar cauc;
@@ -125,7 +126,7 @@ namespace UDP_PACKETS_CODER
 					this->data.shrink_to_fit();
 					return this->data;
 				}
-
+				*length = check;
 				return this->data;
 			}
 			catch (std::exception ex){

@@ -19,11 +19,12 @@ namespace CIPC
 		class BASE
 		{
 		public:
-			BASE(int myPort, const char * remoteIP = "127.0.0.1", int remotePort = 2000)
+			BASE(int myPort, const char * remoteIP = "127.0.0.1", int remotePort = 2000, int fps = 60)
 				:mode(MODE::non),
-				myport(0),
+				myport(myPort),
 				remoteIP(remoteIP),
-				remotePort(0)
+				remotePort(remotePort),
+				fps(fps)
 			{
 				#ifdef windows_user
 				WSADATA wsadata;
@@ -35,9 +36,6 @@ namespace CIPC
 				#ifdef DEBUG
 				std::cout << "[info][cipc_base]開始。" << std::endl;
 				#endif
-
-				this->myport = myPort;
-				this->remotePort = remotePort;
 			}
 
 			virtual ~BASE()
@@ -72,6 +70,14 @@ namespace CIPC
 				Sleep(100);
 				this->Close_add();
 			}
+
+			//
+			CIPC::CLIENT::MODE getCurrentMode() const {
+				return this->mode;
+			}
+			int getCurrentReceivedCheck() const {
+				return this->receivedlength;
+			}
 		protected:
 			//method
 			//Updateで実行される関数。Senderのとき実行される。dataheaderを追加するときはここに追記する。
@@ -88,7 +94,7 @@ namespace CIPC
 				#ifdef DEBUG
 				std::cout << "[info][receive]受信開始。" << std::endl;
 				#endif
-				data = this->udp_client->Receive();
+				data = this->udp_client->Receive(&receivedlength);
 				#ifdef DEBUG
 				std::cout << "[info][receive]受信完了。" << std::endl;
 				#endif
@@ -137,7 +143,8 @@ namespace CIPC
 
 			//自ポート
 			unsigned int myport;
-			
+			int receivedlength;
+			int fps;
 			//相手ポート　ReceiveModeのときは指定しなくていい
 			const char * remoteIP;
 			unsigned int remotePort;

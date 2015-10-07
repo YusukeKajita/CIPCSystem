@@ -12,7 +12,7 @@ const int SETTINGS::Port::myPort = 4002;
 //自分のclientの名前
 const wchar_t SETTINGS::myinfo::name[] = L"RC_KS_DATA";
 const int SETTINGS::myinfo::name_length = sizeof(SETTINGS::myinfo::name) / sizeof(SETTINGS::myinfo::name[0]);
-const int SETTINGS::myinfo::fps = FRAMERATE_CIPC;
+const int SETTINGS::myinfo::fps = 60;
 
 //デフォルトのモード設定。送信モードではデータを送信する素子、受信モードではデータを受信する素子が利用する。
 const CLIENT::MODE SETTINGS::MODE::Mode = CLIENT::MODE::Sender;

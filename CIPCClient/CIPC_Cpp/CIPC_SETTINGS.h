@@ -1,7 +1,6 @@
 #pragma once
 
 #include "CIPC_CLIENT_BASE.h"
-#include "FIRST_SETTING.h"
 
 namespace CIPC
 {

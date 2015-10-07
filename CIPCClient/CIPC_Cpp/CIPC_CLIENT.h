@@ -19,8 +19,8 @@ namespace CIPC
 #endif
 			}
 
-			MAIN(int myPort, char * remoteIP, int remotePort)
-				:BASE(myPort, remoteIP, remotePort)
+			MAIN(int myPort, char * remoteIP, int remotePort,int fps)
+				:BASE(myPort, remoteIP, remotePort,fps)
 			{
 #ifdef DEBUG
 				std::cout << "[info][cipc]開始。宛先選択モード" << std::endl;
@@ -43,7 +43,7 @@ namespace CIPC
 					this->enc.reset();
 					this->enc << SETTINGS::CONNECTION_COMANDS::DEMANDS;
 					this->udp_client->Send(enc.get_vectordata());
-					dec.set_data(this->udp_client->Receive());
+					dec.set_data(this->udp_client->Receive(&this->receivedlength));
 					if (this->dec.get_data<int>() != SETTINGS::CONNECTION_COMANDS::OK)
 					{
 						throw new std::exception("接続失敗");
@@ -67,7 +67,7 @@ namespace CIPC
 				try{
 					this->enc.reset();
 					this->enc << SETTINGS::CONNECTION_COMANDS::DEMANDS;
-					this->enc << SETTINGS::myinfo::fps;
+					this->enc << this->fps;
 					this->enc << SETTINGS::CONNECTION_COMANDS::MODE_SEND;
 					this->enc << (int)SETTINGS::myinfo::name_length * 2;
 					for (int t = 0; t < SETTINGS::myinfo::name_length; t++)
@@ -76,7 +76,7 @@ namespace CIPC
 					}
 
 					this->udp_client->Send(this->enc.get_vectordata());
-					dec.set_data(this->udp_client->Receive());
+					dec.set_data(this->udp_client->Receive(&this->receivedlength));
 #ifdef DEBUG
 					std::cout << "[info][cipc]接続成功。反応：" << this->dec.get_data<int>() << std::endl;
 #endif
@@ -91,7 +91,7 @@ namespace CIPC
 				try{
 					this->enc.reset();
 					this->enc << SETTINGS::CONNECTION_COMANDS::DEMANDS;
-					this->enc << SETTINGS::myinfo::fps;
+					this->enc << this->fps;
 					this->enc << SETTINGS::CONNECTION_COMANDS::MODE_RECEIVE;
 					this->enc << (int)SETTINGS::myinfo::name_length * 2;
 					for (int t = 0; t < SETTINGS::myinfo::name_length; t++)
@@ -100,7 +100,7 @@ namespace CIPC
 					}
 
 					this->udp_client->Send(this->enc.get_vectordata());
-					dec.set_data(this->udp_client->Receive());
+					dec.set_data(this->udp_client->Receive(&this->receivedlength));
 #ifdef DEBUG
 					std::cout << "[info][cipc]接続成功。反応：" << this->dec.get_data<int>() << std::endl;
 #endif
@@ -122,7 +122,7 @@ namespace CIPC
 					this->udp_client->Send(this->enc.get_vectordata());
 
 					
-					dec.set_data(this->udp_client->Receive());
+					dec.set_data(this->udp_client->Receive(&this->receivedlength));
 					if (dec.get_data<int>() == SETTINGS::CONNECTION_COMANDS::END)
 					{
 #ifdef DEBUG
