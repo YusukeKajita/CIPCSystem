@@ -3,6 +3,95 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="White">
+
+                    </SolidColorBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type ContextMenu}">
+            <Setter Property="SnapsToDevicePixels"
+          Value="True" />
+            <Setter Property="OverridesDefaultStyle"
+          Value="True" />
+            <Setter Property="Grid.IsSharedSizeScope"
+          Value="true" />
+            <Setter Property="HasDropShadow"
+          Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContextMenu}">
+                        <Border x:Name="Border"
+                Background="#33000000"
+                BorderThickness="1">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="White" />
+                            </Border.BorderBrush>
+                            <StackPanel IsItemsHost="True"
+                      KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasDropShadow"
+                   Value="true">
+                                <Setter TargetName="Border"
+                    Property="Padding"
+                    Value="0,3,0,3" />
+                                <Setter TargetName="Border"
+                    Property="CornerRadius"
+                    Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="Transparent">
+
+                    </SolidColorBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="White"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="myWindowButtonTemplate"  TargetType="Button">
+            <Border CornerRadius="0" Padding="1" BorderThickness="0" x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="border"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="#BF666666" Duration="0"/>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+
         <ControlTemplate x:Key="ButtonTemplate"  TargetType="Button">
             <Border CornerRadius="3" Padding="1" BorderThickness="3" x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
                 <VisualStateManager.VisualStateGroups>
@@ -456,6 +545,10 @@
             <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
             <Setter Property="Background" Value="#00000000"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+        </Style>
+        <Style TargetType="Separator">
+            <Setter Property="Background" Value="#FFBDBDBD"/>
         </Style>
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Template">
@@ -471,7 +564,7 @@
                                                 Storyboard.TargetProperty="(Panel.Background).
                     (SolidColorBrush.Color)">
                                                 <EasingColorKeyFrame KeyTime="0"
-                                         Value="#CC999999" />
+                                         Value="#1A51FF2E" />
                                             </ColorAnimationUsingKeyFrames>
                                             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderThickness)"
                                                     Storyboard.TargetName="Border">
@@ -527,15 +620,64 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
-        
-        
-        <Style TargetType="CheckBox">
-            <Setter Property="Foreground" Value="White"/>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="White"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="Transparent"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Border"
+                Padding="2"
+                SnapsToDevicePixels="true">
+                            <Border.Background>
+                                <SolidColorBrush Color="Transparent" />
+                            </Border.Background>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="#77770000"/>
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="SelectedUnfocused">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="#77777777"/>
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>
