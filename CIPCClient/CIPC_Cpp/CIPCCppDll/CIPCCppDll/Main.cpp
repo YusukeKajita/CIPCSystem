@@ -56,3 +56,7 @@ DLL_MAKE char* Update(char* data) {
 		return (char*)_data.data();
 	}
 }
+
+DLL_MAKE void Close() {
+	client->Close();
+}
