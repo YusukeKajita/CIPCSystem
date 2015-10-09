@@ -28,3 +28,4 @@ CIPCServer(GUIBase)で実現されるCIPC通信は１．送信　２．受信の
 * 
 　
 　
+## ArduinoCommunication
