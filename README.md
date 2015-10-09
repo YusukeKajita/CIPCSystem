@@ -1,5 +1,9 @@
 # CIPCSystem
 
-CIPCSystem realize the all connections you want.
-A unique serialization we created have been used.
-All of people can use this system.
+## 特徴
+* CIPCシステムは、UDPを用いてあらゆるプロセス間の通信を実現します。
+* UDPであるためIPを用いた遠隔通信も実現します。この際CIPCServerが中継通信を実現するため、P2P通信を行うことが可能です。
+* CIPCSystemの関連ソフトを使用することでさまざまな機能を副次的に利用できます。 
+
+## How to Use
+ま
