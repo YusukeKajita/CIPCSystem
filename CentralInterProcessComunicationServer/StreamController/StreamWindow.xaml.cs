@@ -64,56 +64,66 @@ namespace StreamController
         /// <param name="name"></param>
         public StreamWindow(MainWindow parent, StreamClient SC) 
         {
-            InitializeComponent();
-            this.MouseLeftButtonDown += (sender, e) => this.DragMove();
-            this.Closing += StreamWindow_Closing;
-            
-            this.SC = SC;
-            this.TitleText.Text = this.SC.name;
-            this.textblock_settingdata.Text
-                = "MyPort : " + this.SC.myport.ToString() + "\n"
-                + "ServerIP : " + this.SC.serverIP + "\n"
-                + "ServerPort : " + this.SC.serverport.ToString() + "\n"
-                + "Mode : " + this.SC.mode.ToString() + "\n"
-                + "FPS : " + this.SC.fps.ToString() + "\n"
-                + "filepath : " + this.SC.filename + "\n";
-
-
-            #region set button and file open.
-            switch (this.SC.mode)
+            try
             {
-                case MODE.Sender:
-                    this.Button_Start.IsEnabled = true;
-                    this.Button_RecStart.IsEnabled = false;
-                    this.reader = new BinaryReader(File.OpenRead(this.SC.filename));
-                    this.progressbar_datastream.Maximum = this.reader.BaseStream.Length;
-                    break;
-                case MODE.Receiver:
-                    this.Button_Start.IsEnabled = false;
-                    this.Button_RecStart.IsEnabled = true;
-                    this.writer = new BinaryWriter(File.OpenWrite(this.SC.filename));
-                    break;
-                default: 
-                    break;
+                InitializeComponent();
+                this.MouseLeftButtonDown += (sender, e) => this.DragMove();
+                this.Closing += StreamWindow_Closing;
+
+                this.SC = SC;
+                this.TitleText.Text = this.SC.name;
+                this.textblock_settingdata.Text
+                    = "MyPort : " + this.SC.myport.ToString() + "\n"
+                    + "ServerIP : " + this.SC.serverIP + "\n"
+                    + "ServerPort : " + this.SC.serverport.ToString() + "\n"
+                    + "Mode : " + this.SC.mode.ToString() + "\n"
+                    + "FPS : " + this.SC.fps.ToString() + "\n"
+                    + "filepath : " + this.SC.filename;
+
+
+                #region set button and file open.
+                switch (this.SC.mode)
+                {
+                    case MODE.Sender:
+                        this.Button_Start.IsEnabled = true;
+                        this.Button_RecStart.IsEnabled = false;
+                        this.reader = new BinaryReader(File.OpenRead(this.SC.filename));
+                        this.progressbar_datastream.Maximum = this.reader.BaseStream.Length;
+                        break;
+                    case MODE.Receiver:
+                        this.Button_Start.IsEnabled = false;
+                        this.Button_RecStart.IsEnabled = true;
+                        this.writer = new BinaryWriter(File.OpenWrite(this.SC.filename));
+                        break;
+                    default:
+                        break;
+                }
+
+                #endregion
+
+
+
+                this.cipc = new CIPC_CS.CLIENT.CLIENT(this.SC.myport, this.SC.serverIP, this.SC.serverport, this.SC.name, this.SC.fps);
+                this.CTS = new System.Threading.CancellationTokenSource();
+
+                this.Fps_cipc = new FPSAdjuster.FPSAdjuster();
+                this.Fps_cipc.Fps = this.SC.fps;
+
+                this.task = new Task(() => maintask(), this.CTS.Token);
+                this.task.Start();
+
+                this.parent = parent;
+                this.IsRecStarted = false;
+                this.IsSendStarted = false;
+                this.IsClosed = false;
+
+                this.textblock_settingdata.ToolTip = this.textblock_settingdata.Text;
             }
-
-            #endregion
-
-
-
-            this.cipc = new CIPC_CS.CLIENT.CLIENT(this.SC.myport, this.SC.serverIP, this.SC.serverport, this.SC.name, this.SC.fps);
-            this.CTS = new System.Threading.CancellationTokenSource();
-            
-            this.Fps_cipc = new FPSAdjuster.FPSAdjuster();
-            this.Fps_cipc.Fps = this.SC.fps;
-
-            this.task=new Task(() => maintask(), this.CTS.Token);
-            this.task.Start();
-
-            this.parent = parent;
-            this.IsRecStarted = false;
-            this.IsSendStarted = false;
-            this.IsClosed = false;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                this.Close();
+            }
         }
 
         #region task
@@ -256,24 +266,31 @@ namespace StreamController
 
         private void finish()
         {
-            this.IsRecStarted = false;
-            this.IsSendStarted = false;
-            switch (this.SC.mode)
+            try
             {
-                case MODE.Sender:
-                    this.reader.Close();
-                    break;
-                case MODE.Receiver:
-                    this.writer.Close();
-                    break;
-                default:
-                    break;
+                this.IsRecStarted = false;
+                this.IsSendStarted = false;
+                switch (this.SC.mode)
+                {
+                    case MODE.Sender:
+                        this.reader.Close();
+                        break;
+                    case MODE.Receiver:
+                        this.writer.Close();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
         #endregion
 
         #region UI event
-        void StreamWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        public void StreamWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
@@ -299,12 +316,12 @@ namespace StreamController
             this.cipc.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void Button_RecStart_Click(object sender, RoutedEventArgs e)
+        public void Button_RecStart_Click(object sender, RoutedEventArgs e)
         {
             this.starttime = DateTime.Now;
             this.currentframe = 0;
@@ -312,7 +329,7 @@ namespace StreamController
             this.Button_RecStart.IsEnabled = false;
         }
 
-        private void Button_Start_Click(object sender, RoutedEventArgs e)
+        public void Button_Start_Click(object sender, RoutedEventArgs e)
         {
             this.starttime = DateTime.Now;
             this.currentframe = 0;
@@ -320,7 +337,7 @@ namespace StreamController
             this.Button_Start.IsEnabled = false;
         }
 
-        private void Button_Stop_Click(object sender, RoutedEventArgs e)
+        public void Button_Stop_Click(object sender, RoutedEventArgs e)
         {
             this.finish();
         }

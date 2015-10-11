@@ -62,9 +62,8 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CIPC_CS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll</HintPath>
+    <Reference Include="CIPC_CS">
+      <HintPath>..\..\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll</HintPath>
     </Reference>
     <Reference Include="FPSAdjuster">
       <HintPath>..\..\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
