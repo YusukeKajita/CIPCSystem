@@ -1,0 +1,7 @@
+obj/
+*.suo
+
+bin/
+release/
+debug/
+
