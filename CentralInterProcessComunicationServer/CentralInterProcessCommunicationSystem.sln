@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamController", "StreamC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamAnalyzer", "StreamAnalyzer\StreamAnalyzer.csproj", "{A9F224F7-F36A-46C6-8903-F4A7CC194D39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIPCTerminal", "CIPCTerminal\CIPCTerminal.csproj", "{95104DCE-0668-43F1-A76B-C4C3E6A7399B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A9F224F7-F36A-46C6-8903-F4A7CC194D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9F224F7-F36A-46C6-8903-F4A7CC194D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9F224F7-F36A-46C6-8903-F4A7CC194D39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95104DCE-0668-43F1-A76B-C4C3E6A7399B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95104DCE-0668-43F1-A76B-C4C3E6A7399B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95104DCE-0668-43F1-A76B-C4C3E6A7399B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95104DCE-0668-43F1-A76B-C4C3E6A7399B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
