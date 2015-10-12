@@ -30,3 +30,6 @@ C:\Users\yozora\Dropbox\CIPCServer_Console\CIPCServer_Console\bin\Debug\CIPC_CS.
 C:\Users\yozora\Dropbox\CIPCServer_Console\CIPCServer_Console\bin\Debug\UDP_PACKETS_CLIANT.pdb
 C:\Users\yozora\Dropbox\CIPCServer_Console\CIPCServer_Console\bin\Debug\UDP_PACKETS_CODER.pdb
 C:\Users\yozora\Dropbox\CIPCServer_Console\CIPCServer_Console\obj\Debug\CIPCServer_Console.csprojResolveAssemblyReference.cache
+C:\workspace\CIPCSystem\CIPCServer_Console\CIPCServer_Console\bin\Debug\CIPCServer_Console.exe.config
+C:\workspace\CIPCSystem\CIPCServer_Console\CIPCServer_Console\obj\Debug\CIPCServer_Console.exe
+C:\workspace\CIPCSystem\CIPCServer_Console\CIPCServer_Console\obj\Debug\CIPCServer_Console.pdb

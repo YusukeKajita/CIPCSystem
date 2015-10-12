@@ -45,28 +45,28 @@ namespace CentralInterProcessCommunicationServer
         /// </summary>
         private List<int> LstPort;
         private Task mytask;
-        
+
         #endregion
 
         #region propaty
         public List<CentralInterProcessCommunicationServer.RemoteHost> List_RemoteHost
         {
-            get 
+            get
             {
                 return this.List_remotehost;
             }
         }
-        public int server_port 
+        public int server_port
         {
-            get 
+            get
             {
                 return myPort;
             }
         }
 
-        public int host_num 
+        public int host_num
         {
-            get 
+            get
             {
                 return LstPort.Count;
             }
@@ -81,13 +81,14 @@ namespace CentralInterProcessCommunicationServer
         #endregion
 
         #region constructer
-        public RemoteHostServer() 
+        public RemoteHostServer()
         {
             try
             {
                 client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(myPort);
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 while (true)
                 {
@@ -105,10 +106,10 @@ namespace CentralInterProcessCommunicationServer
                 this.dec = new UDP_PACKETS_CODER.UDP_PACKETS_DECODER();
                 this.LstPort = new List<int>();
 
-                mytask = new Task(() => this.MAIN_TASK());
-                mytask.Start();
+                //mytask = new Task(() => this.MAIN_TASK());
+                //mytask.Start();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 while (true)
                 {
@@ -124,8 +125,9 @@ namespace CentralInterProcessCommunicationServer
                 #region create remotehost servers list and one remotehost server
                 this.List_remotehost = new List<RemoteHost>();
                 #endregion
+                client.DataReceived += client_DataReceived;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 while (true)
                 {
@@ -135,6 +137,24 @@ namespace CentralInterProcessCommunicationServer
                         break;
                     }
                 }
+            }
+        }
+
+        void client_DataReceived(object sender, byte[] e)
+        {
+            int id_port = 0;
+            bool Is_Connected = false;
+            this.dec.Source = e;
+            update(ref id_port, ref Is_Connected);
+
+            this.id_port = id_port;
+            if (Is_Connected)
+            {
+                this.List_remotehost.Add(new RemoteHost(id_port, this.debugwindow, this.terminalconnection));
+            }
+            else
+            {
+                this.List_remotehost.RemoveAll(atPort);
             }
         }
         #endregion
@@ -163,10 +183,10 @@ namespace CentralInterProcessCommunicationServer
             }
             catch (Exception ex)
             {
-                debugwindow.DebugLog ="["+ this.ToString() +"]"+ ex.Message;
-                Thread.Sleep(100);
-                mytask = new Task(() => this.MAIN_TASK());
-                mytask.Start();
+                debugwindow.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    debugwindow.DebugLog = ex.Message + "接続を終了する段階でエラーが発生しました。";
+                }));
             }
 
         }
@@ -177,7 +197,7 @@ namespace CentralInterProcessCommunicationServer
             {
                 return true;
             }
-            else 
+            else
             {
                 return false;
             }
@@ -193,27 +213,13 @@ namespace CentralInterProcessCommunicationServer
         /// ポートを割り振る、もしくは終了します。
         /// </summary>
         /// <returns></returns>
-        private void update(ref int Port, ref bool isConnect) 
+        private void update(ref int Port, ref bool isConnect)
         {
             try
             {
-                this.client.Close();
-                this.client = null;
-                Thread.Sleep(100);
-                this.client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(myPort);
-                this.debugwindow.DebugLog = "[RemoteHostServer]操作受付を開始します．ポート：" + this.server_port;
-                while (true)
-                {
-                    if (this.client.Received_Data != null)
-                    {
-                        dec.Source = this.client.Received_Data;
-                        break;
-                    }
-                    Thread.Sleep(10);
-                }
-                
-                Thread.Sleep(100);
-                switch (dec.get_int()) 
+
+                this.debugwindow.DebugLog = "[RemoteHostServer]操作を開始します．RemoteEP：" + this.client.RemoteEP.ToString();
+                switch (dec.get_int())
                 {
                     case Definitions.CONNECTION_DEMANDS:
                         isConnect = true;
@@ -225,12 +231,11 @@ namespace CentralInterProcessCommunicationServer
                         this.debugwindow.DebugLog = "要求された信号に対応するコマンドが存在しません。リモートホスト側のコネクトの設定を確認してください。";
                         break;
                 }
-
                 if (isConnect)
                 {
                     this.connect(ref Port);
                 }
-                else 
+                else
                 {
                     this.disconnect(dec.get_int());
                     try
@@ -242,15 +247,14 @@ namespace CentralInterProcessCommunicationServer
                         debugwindow.DebugLog = "[" + this.ToString() + "]" + ex.Message;
                     }
                 }
-
-                
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show( ex.Message + "ポートを割り振るサーバのアップデートでエラーが発生しました。");
+                MessageBox.Show(ex.Message + "ポートを割り振るサーバのアップデートでエラーが発生しました。");
             }
         }
 
-        private void connect(ref int port) 
+        private void connect(ref int port)
         {
             try
             {
@@ -260,7 +264,7 @@ namespace CentralInterProcessCommunicationServer
                     {
                         port = current_port;
                         this.LstPort.Add(current_port);
-                        
+
                         this.enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
                         this.enc += Definitions.CONNECTION_OK;
                         this.enc += current_port;
@@ -270,22 +274,23 @@ namespace CentralInterProcessCommunicationServer
                         break;
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 debugwindow.DebugLog = ex.Message + "コネクトの段階でエラーが発生しました。";
             }
         }
 
         private int destroyport;
-        private void disconnect(int port) 
+        private void disconnect(int port)
         {
-            try 
+            try
             {
                 this.debugwindow.DebugLog = "[RemoteHostServer]切断要求がきました．ポート番号：" + port.ToString();
                 destroyport = port;
                 this.LstPort.Remove(port);
                 this.List_remotehost.RemoveAll(check_remotehosts);
-                
+
                 this.enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
                 this.enc += Definitions.CONNECTION_END;
                 this.client.Send(this.enc.data);
@@ -324,7 +329,7 @@ namespace CentralInterProcessCommunicationServer
                 obj.disconnect();
                 return true;
             }
-            else 
+            else
             {
                 return false;
             }
@@ -334,7 +339,7 @@ namespace CentralInterProcessCommunicationServer
         #region ListAdd
         CollectionViewSource view = new CollectionViewSource();
         public ObservableCollection<Client> Clients = new ObservableCollection<Client>();
-        public void Listupdate( ListView LISTVIEW)
+        public void Listupdate(ListView LISTVIEW)
         {
 
             Clients.Clear();
