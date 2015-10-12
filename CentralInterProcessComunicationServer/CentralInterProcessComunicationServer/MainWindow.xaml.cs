@@ -102,7 +102,8 @@ namespace CentralInterProcessCommunicationServer
                     this.TC.RHS = this.rhServer;
                     this.TC.DCS = this.DCS;
                     this.TC.mainwindow = this;
-                    this.AddTCFunction();
+                    //this.AddTCFunction();
+                    this.AddRemoteOperateFunction();
 
                     this.rhServer.terminalconnection = this.TC;
                     #endregion
@@ -151,6 +152,20 @@ namespace CentralInterProcessCommunicationServer
             this.TC.Eventer.SaveConnectionFast += Eventer_SaveConnectionFast;
             this.TC.Eventer.TurnOnSyncConnect += Eventer_TurnOnSyncConnect;
             this.TC.Eventer.TurnOffSyncConnect += Eventer_TurnOffSyncConnect;
+        }
+
+        private void AddRemoteOperateFunction()
+        {
+            this.rhServer.Eventer.Close += Eventer_Close;
+            this.rhServer.Eventer.DemmandInfo += Eventer_DemmandInfo;
+            this.rhServer.Eventer.Restart += Eventer_Restart;
+            this.rhServer.Eventer.Connect += Eventer_Connect;
+            this.rhServer.Eventer.DisConnect += Eventer_DisConnect;
+            this.rhServer.Eventer.AllDisConnect += Eventer_AllDisConnect;
+            this.rhServer.Eventer.LoadConnectionFast += Eventer_LoadConnectionFast;
+            this.rhServer.Eventer.SaveConnectionFast += Eventer_SaveConnectionFast;
+            this.rhServer.Eventer.TurnOnSyncConnect += Eventer_TurnOnSyncConnect;
+            this.rhServer.Eventer.TurnOffSyncConnect += Eventer_TurnOffSyncConnect;
         }
 
         void Eventer_TurnOffSyncConnect(object sender, TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect e)

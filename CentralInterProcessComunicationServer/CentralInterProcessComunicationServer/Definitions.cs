@@ -36,6 +36,11 @@ namespace CentralInterProcessCommunicationServer
         /// 返信　ok
         /// </summary>
         public const int CONNECTION_OK = 0;
+
+        /// <summary>
+        /// サーバー操作用コマンド
+        /// </summary>
+        public const int CONNECTION_SERVER_OPERATE = 20;
         #endregion
 
         #region Server

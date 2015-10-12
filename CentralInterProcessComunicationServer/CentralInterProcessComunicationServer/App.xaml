@@ -57,5 +57,9 @@
             <Setter Property="Background" Value="#99000000"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
     </Application.Resources>
 </Application>
