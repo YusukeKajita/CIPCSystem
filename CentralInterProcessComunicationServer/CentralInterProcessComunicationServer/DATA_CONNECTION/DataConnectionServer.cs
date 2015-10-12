@@ -34,18 +34,18 @@ namespace CentralInterProcessCommunicationServer.DATA_CONNECTION
             }
         }
 
-        public DebugWindow debugwindow { set; get;}
+        public DebugWindow debugwindow { set; get; }
         #endregion
 
         #region constructer
-        public DataConnectionServer() 
+        public DataConnectionServer()
         {
             this.List_dataconnection = new List<MyDataConnection>();
         }
         #endregion
 
         #region public method
-        public void add_connection(RemoteHost sender, RemoteHost receiver, bool IsSync) 
+        public void add_connection(RemoteHost sender, RemoteHost receiver, bool IsSync)
         {
             try
             {
@@ -83,16 +83,16 @@ namespace CentralInterProcessCommunicationServer.DATA_CONNECTION
 
         private RemoteHost sender;
         private RemoteHost receiver;
-        public void delete_connection(RemoteHost sender,RemoteHost receiver) 
+        public void delete_connection(RemoteHost sender, RemoteHost receiver)
         {
-            try 
+            try
             {
                 this.debugwindow.DebugLog = "[DataConnectionServer]データ接続を削除します．送信側リモートポート：" + sender.remotePort.ToString() + "受信側リモートポート：" + receiver.remotePort.ToString();
                 this.receiver = receiver;
                 this.sender = sender;
                 this.List_dataconnection.RemoveAll(serch_connection);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -112,48 +112,51 @@ namespace CentralInterProcessCommunicationServer.DATA_CONNECTION
             }
         }
 
-        
 
-        public void ListBox_update(ListBox mylistbox) 
+
+        public void ListBox_update(ListBox mylistbox)
         {
-            try
+            mylistbox.Dispatcher.BeginInvoke(new Action(() =>
             {
-                if (mylistbox.Items != null)
+                try
                 {
-                    mylistbox.Items.Clear();
+                    if (mylistbox.Items != null)
+                    {
+                        mylistbox.Items.Clear();
+                    }
+                    if (this.List_dataconnection.Count == 0)
+                    {
+                        return;
+                    }
+                    foreach (var dataconnection in this.List_dataconnection)
+                    {
+                        StackPanel stp = new StackPanel();
+                        stp.Orientation = Orientation.Horizontal;
+
+                        var TB1 = new TextBlock();
+                        TB1.Text = dataconnection.SENDER.ID.ToString();
+                        stp.Children.Add(TB1);
+
+                        var TB = new TextBlock();
+                        TB.Text = " ⇒ ";
+                        stp.Children.Add(TB);
+
+                        var TB2 = new TextBlock();
+                        TB2.Text = dataconnection.RECEIVER.ID.ToString();
+                        stp.Children.Add(TB2);
+
+                        var TB3 = new TextBlock();
+                        TB3.Text = dataconnection.IsConnectSync ? " $ Sync Mode" : " | Async Mode";
+                        stp.Children.Add(TB3);
+
+                        mylistbox.Items.Add(stp);
+                    }
                 }
-                if (this.List_dataconnection.Count == 0) 
+                catch (Exception ex)
                 {
-                    return;
+                    MessageBox.Show(ex.Message);
                 }
-                foreach (var dataconnection in this.List_dataconnection)
-                {
-                    StackPanel stp = new StackPanel();
-                    stp.Orientation = Orientation.Horizontal;
-
-                    var TB1 = new TextBlock();
-                    TB1.Text = dataconnection.SENDER.ID.ToString();
-                    stp.Children.Add(TB1);
-
-                    var TB = new TextBlock();
-                    TB.Text = " ⇒ ";
-                    stp.Children.Add(TB);
-
-                    var TB2 = new TextBlock();
-                    TB2.Text = dataconnection.RECEIVER.ID.ToString();
-                    stp.Children.Add(TB2);
-
-                    var TB3 = new TextBlock();
-                    TB3.Text = dataconnection.IsConnectSync ? " $ Sync Mode" : " | Async Mode" ;
-                    stp.Children.Add(TB3);
-
-                    mylistbox.Items.Add(stp);
-                }
-            }
-            catch (Exception ex) 
-            {
-                MessageBox.Show(ex.Message);
-            }
+            }));
         }
 
         public MyDataConnection get_SelectedDataConnection(int index)
@@ -185,7 +188,7 @@ namespace CentralInterProcessCommunicationServer.DATA_CONNECTION
                 obj.Disconnect();
                 return true;
             }
-            else 
+            else
             {
                 return false;
             }

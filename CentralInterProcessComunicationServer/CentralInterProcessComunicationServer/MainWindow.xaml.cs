@@ -37,6 +37,13 @@ namespace CentralInterProcessCommunicationServer
         /// データコネクションを行うインスタンス　ConnectionListを保有する
         /// </summary>
         private DATA_CONNECTION.DataConnectionServer DCS;
+        public DATA_CONNECTION.DataConnectionServer DataConnectionServer
+        {
+            get
+            {
+                return this.DCS;
+            }
+        }
 
         private TerminalConnection.TerminalConnection TC;
         private int old_Num_Port = 0;
@@ -102,7 +109,7 @@ namespace CentralInterProcessCommunicationServer
                     #region ProcessList
                     this.List_Processes = new List<System.Diagnostics.Process>();
                     #endregion
-
+                    this.rhServer.parent = this;
                     InitializeComponent();
                     debugwindow.DebugLog = "[CIPCServer]CIPCServerを開始します．";
                 }

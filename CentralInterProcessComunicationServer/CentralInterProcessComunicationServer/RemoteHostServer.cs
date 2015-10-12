@@ -78,6 +78,7 @@ namespace CentralInterProcessCommunicationServer
                 return this.List_remotehost.Count;
             }
         }
+        public MainWindow parent { set; get; }
         #endregion
 
         #region constructer
@@ -106,8 +107,6 @@ namespace CentralInterProcessCommunicationServer
                 this.dec = new UDP_PACKETS_CODER.UDP_PACKETS_DECODER();
                 this.LstPort = new List<int>();
 
-                //mytask = new Task(() => this.MAIN_TASK());
-                //mytask.Start();
             }
             catch (Exception ex)
             {
@@ -158,38 +157,6 @@ namespace CentralInterProcessCommunicationServer
             }
         }
         #endregion
-
-        private void MAIN_TASK()
-        {
-            try
-            {
-                while (true)
-                {
-                    int id_port = 0;
-                    bool Is_Connected = false;
-                    update(ref id_port, ref Is_Connected);
-
-                    this.id_port = id_port;
-                    if (Is_Connected)
-                    {
-                        this.List_remotehost.Add(new RemoteHost(id_port, this.debugwindow, this.terminalconnection));
-                    }
-                    else
-                    {
-                        this.List_remotehost.RemoveAll(atPort);
-                    }
-                }
-                throw new Exception("RemoteHostServerが停止しました．");
-            }
-            catch (Exception ex)
-            {
-                debugwindow.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    debugwindow.DebugLog = ex.Message + "接続を終了する段階でエラーが発生しました。";
-                }));
-            }
-
-        }
 
         private bool atPort(RemoteHost obj)
         {
@@ -287,7 +254,15 @@ namespace CentralInterProcessCommunicationServer
             try
             {
                 this.debugwindow.DebugLog = "[RemoteHostServer]切断要求がきました．ポート番号：" + port.ToString();
+
                 destroyport = port;
+                var connections = this.parent.DataConnectionServer.List_dataconnection.FindAll(p => p.SENDER.ID == port || p.RECEIVER.ID == port);
+                foreach (var p in connections)
+                {
+                    this.parent.DataConnectionServer.delete_connection(p.SENDER, p.RECEIVER);
+                }
+                this.parent.DataConnectionServer.ListBox_update(parent.LISTBOX_DATA_CONNECTION);
+
                 this.LstPort.Remove(port);
                 this.List_remotehost.RemoveAll(check_remotehosts);
 
