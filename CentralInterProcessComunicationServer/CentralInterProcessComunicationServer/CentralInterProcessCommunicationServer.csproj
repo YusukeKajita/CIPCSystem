@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="RemoteHost.cs" />
     <Compile Include="RemoteHostServer.cs" />
+    <Compile Include="RemoteOperater.cs" />
     <Compile Include="Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

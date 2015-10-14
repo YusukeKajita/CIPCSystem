@@ -658,14 +658,26 @@ namespace CIPCTerminal
 
         private void Button_Local_CIPCServer_TurnOnSyncConnect_Click(object sender, RoutedEventArgs e)
         {
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect());
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("127.0.0.1",12000,18000);
+            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            enc += (int)20;
+            enc += (string)(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect()).Data;
+            client.Send(enc.data);
+            client.Close();
+            //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect());
+            //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
         }
 
         private void Button_Local_CIPCServer_TurnOffSyncConnect_Click(object sender, RoutedEventArgs e)
         {
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect());
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("192.168.0.8", 12000, 18050);
+            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            enc += (int)20;
+            enc += (string)(new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect()).Data;
+            client.Send(enc.data);
+            //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect());
+            //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            client.Close();
         }
         #region CIPCNetWorkUIEvent
 

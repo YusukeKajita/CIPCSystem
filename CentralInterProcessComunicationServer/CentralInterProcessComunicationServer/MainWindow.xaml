@@ -15,31 +15,34 @@
         </Grid.Background>
 
         <GroupBox Header="接続中のプロセス" Margin="10,87,0,40">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Text="" Width="100" Margin="5" x:Name="TextBox_deleteremotehost"/>
-                    <Button Template="{StaticResource ButtonTemplate}" x:Name="Button_DeleteRemoteHost" Click="Button_DeleteRemoteHost_Click" BorderBrush="White" Background="Transparent" Foreground="White" Content="強制切断" Margin="5"/>
-                </StackPanel>
-                <ListView x:Name="LISTVIEW1" ItemsSource="{Binding}" Margin="2" FontSize="9" Grid.Row="1" Background="#33000000" Foreground="White" ToolTip="現在接続中のプロセスが表示されます" BorderThickness="2" BorderBrush="White" SelectionChanged="LISTVIEW1_SelectionChanged">
-                    <ListView.View>
-                        <GridView>
-                            <GridView.Columns>
-                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="80"/>
-                                <GridViewColumn Header="Port" DisplayMemberBinding="{Binding Port}" Width="50"/>
-                                <GridViewColumn Header="remoteIP" DisplayMemberBinding="{Binding remoteIP}" Width="90"/>
-                                <GridViewColumn Header="remotePort" DisplayMemberBinding="{Binding remotePort}" Width="80"/>
-                                <GridViewColumn Header="Connect_Name" DisplayMemberBinding="{Binding Connect_Name}" Width="85"/>
-                                <GridViewColumn Header="FPS" DisplayMemberBinding="{Binding FPS}" Width="50"/>
-                                <GridViewColumn Header="mode" DisplayMemberBinding="{Binding mode}" Width="50"/>
-                            </GridView.Columns>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
+            <StackPanel>
+                <GroupBox Header="送受信クライアント">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="" Width="100" Margin="5" x:Name="TextBox_deleteremotehost"/>
+                            <Button Template="{StaticResource ButtonTemplate}" x:Name="Button_DeleteRemoteHost" Click="Button_DeleteRemoteHost_Click" BorderBrush="White" Background="Transparent" Foreground="White" Content="強制切断" Margin="5"/>
+                        </StackPanel>
+                        <ListView x:Name="LISTVIEW1" ItemsSource="{Binding}" Margin="2" FontSize="9" Background="#33000000" Foreground="White" ToolTip="現在接続中のプロセスが表示されます" BorderThickness="2" BorderBrush="White" SelectionChanged="LISTVIEW1_SelectionChanged" Height="150">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="80"/>
+                                        <GridViewColumn Header="Port" DisplayMemberBinding="{Binding Port}" Width="50"/>
+                                        <GridViewColumn Header="remoteIP" DisplayMemberBinding="{Binding remoteIP}" Width="90"/>
+                                        <GridViewColumn Header="remotePort" DisplayMemberBinding="{Binding remotePort}" Width="80"/>
+                                        <GridViewColumn Header="Connect_Name" DisplayMemberBinding="{Binding Connect_Name}" Width="85"/>
+                                        <GridViewColumn Header="FPS" DisplayMemberBinding="{Binding FPS}" Width="50"/>
+                                        <GridViewColumn Header="mode" DisplayMemberBinding="{Binding mode}" Width="50"/>
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="遠隔操作クライアント">
+                    <ListBox Height="140" x:Name="ListBox_RemoteOperater"/>
+                </GroupBox>
+            </StackPanel>
         </GroupBox>
 
         <TextBlock x:Name="text1" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="72"/>
@@ -51,13 +54,13 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="293*"/>
                 </Grid.RowDefinitions>
-                <ListBox x:Name="LISTBOX_DATA_CONNECTION" Grid.Row="3" Background="#33000000" Foreground="White" SelectionChanged="LISTBOX_DATA_CONNECTION_selectionchanged" ToolTip="ここに各接続が表示されます" BorderThickness="2" BorderBrush="White" Margin="2"/>
-                <TextBox x:Name="sender_port" HorizontalAlignment="Left" Margin="5,5,0,5" TextWrapping="Wrap" Width="59" Background="{x:Null}" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" ToolTip="ここに送信側プロセスの「Port」の番号を入力してください" VerticalAlignment="Center"/>
-                <TextBox x:Name="receiver_port" HorizontalAlignment="Left" Margin="90,5,0,5" TextWrapping="Wrap" Width="60" Background="{x:Null}" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" ToolTip="ここに受信側プロセスの「Port」の番号を入力してください" VerticalAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" Margin="70,15,0,0" TextWrapping="Wrap" Text="To" VerticalAlignment="Top" RenderTransformOrigin="0.371,-0.167" Height="18" Width="18"/>
-                <Button x:Name="Connect_Button" Content="接続" Margin="0,5,85,5" Click="Connect_Button_Click" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Background="#00000000" BorderBrush="White" ToolTip="接続を追加します" HorizontalAlignment="Right" Width="75"/>
-                <Button x:Name="Cut_Button" Content="切断" Margin="237,5,5,5" Click="Cut_Button_Click" Background="#00000000" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" BorderBrush="White" ToolTip="接続を削除します"/>
-
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="sender_port" Margin="5,5,0,5" Width="59" ToolTip="ここに送信側プロセスの「Port」の番号を入力してください" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Left" Text="To" VerticalAlignment="Center" Height="18" Width="18"/>
+                    <TextBox x:Name="receiver_port" TextWrapping="Wrap" Width="60" ToolTip="ここに受信側プロセスの「Port」の番号を入力してください" VerticalAlignment="Center"/>
+                    <Button x:Name="Connect_Button" Content="接続" Margin="5" Click="Connect_Button_Click" Foreground="White" Background="Transparent" BorderBrush="White" ToolTip="接続を追加します" Width="75"/>
+                    <Button x:Name="Cut_Button" Content="切断" Margin="5" Width="75" Click="Cut_Button_Click" Background="Transparent" Foreground="White" BorderBrush="White" ToolTip="接続を削除します"/>
+                </StackPanel>
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                     <Button x:Name="Button_ConnectionSettingSave" Content="設定保存" HorizontalAlignment="Left" Margin="5,5,0,5"  Background="#00000000" Foreground="White" BorderBrush="White" Click="Button_ConnectionSettingSave_Click" ToolTip="接続設定を保存します" Grid.Row="1"/>
                     <Button x:Name="Button_ConnectionSettingLoad" Content="設定読込" HorizontalAlignment="Left" Margin="5,5,5,5"  Background="#00000000" Foreground="White" BorderBrush="White" Click="Button_ConnectionSettingLoad_Click" ToolTip="接続設定を読み込みます" Grid.Row="1"/>
@@ -68,6 +71,8 @@
                 <StackPanel Orientation="Horizontal"  Grid.Row="2" VerticalAlignment="Center" Margin="5">
                     <CheckBox Content="FPSシンクロ" x:Name="CheckBox_IsSyncReceived"/>
                 </StackPanel>
+                <ListBox x:Name="LISTBOX_DATA_CONNECTION" Grid.Row="3" Background="#33000000" Foreground="White" SelectionChanged="LISTBOX_DATA_CONNECTION_selectionchanged" ToolTip="ここに各接続が表示されます" BorderThickness="2" BorderBrush="White" Margin="2"/>
+
             </Grid>
         </GroupBox>
         <Button x:Name="update_button" Content="更新" HorizontalAlignment="Right" Margin="0,56,170,0" VerticalAlignment="Top" Width="75" Click="update_button_clicked" Background="#00000000" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" BorderBrush="White" ToolTip="接続クライアントの一覧を更新します 自動更新されない場合に使用してください" Grid.Column="1" Height="26"/>

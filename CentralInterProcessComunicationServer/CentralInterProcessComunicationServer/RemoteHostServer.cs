@@ -31,7 +31,7 @@ namespace CentralInterProcessCommunicationServer
 
         public DebugWindow debugwindow { set; get; }
         public TerminalConnection.TerminalConnection terminalconnection { set; get; }
-
+        public TerminalConnectionSettings.CommandEventer Eventer { set; get; }
         #region server
         /// <summary>
         /// 現在保持しているリモートホストおよびそのタスクのリスト
@@ -44,7 +44,6 @@ namespace CentralInterProcessCommunicationServer
         /// 現在保持しているポートのリスト
         /// </summary>
         private List<int> LstPort;
-        private Task mytask;
 
         #endregion
 
@@ -79,6 +78,7 @@ namespace CentralInterProcessCommunicationServer
             }
         }
         public MainWindow parent { set; get; }
+        public RemoteOperater remoteOperator { set; get; }
         #endregion
 
         #region constructer
@@ -86,8 +86,9 @@ namespace CentralInterProcessCommunicationServer
         {
             try
             {
+                this.Eventer = new TerminalConnectionSettings.CommandEventer();
                 client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(myPort);
-
+                this.remoteOperator = new RemoteOperater(client);
             }
             catch (Exception ex)
             {
@@ -145,16 +146,6 @@ namespace CentralInterProcessCommunicationServer
             bool Is_Connected = false;
             this.dec.Source = e;
             update(ref id_port, ref Is_Connected);
-
-            this.id_port = id_port;
-            if (Is_Connected)
-            {
-                this.List_remotehost.Add(new RemoteHost(id_port, this.debugwindow, this.terminalconnection));
-            }
-            else
-            {
-                this.List_remotehost.RemoveAll(atPort);
-            }
         }
         #endregion
 
@@ -189,30 +180,45 @@ namespace CentralInterProcessCommunicationServer
                 switch (dec.get_int())
                 {
                     case Definitions.CONNECTION_DEMANDS:
+                        this.connect(ref Port);
                         isConnect = true;
+                        this.id_port = Port;
+                        if (isConnect)
+                        {
+                            this.List_remotehost.Add(new RemoteHost(id_port, this.debugwindow, this.terminalconnection));
+                        }
+                        else
+                        {
+                            this.List_remotehost.RemoveAll(atPort);
+                        }
                         break;
+
                     case Definitions.CONNECTION_END:
+                        this.disconnect(dec.get_int());
                         isConnect = false;
+                        this.id_port = Port;
+                        if (isConnect)
+                        {
+                            this.List_remotehost.Add(new RemoteHost(id_port, this.debugwindow, this.terminalconnection));
+                        }
+                        else
+                        {
+                            this.List_remotehost.RemoveAll(atPort);
+                        }
                         break;
+
+                    case Definitions.CONNECTION_SERVER_OPERATE:
+                        string message = dec.get_string();
+                        this.debugwindow.DebugLog = "[TerminalConnection]受信:" + message;
+                        Eventer.Handle(message);
+                        this.remoteOperator.mainwindow = this.parent;
+                        this.remoteOperator.addRemoteEP();
+                        this.remoteOperator.UpdateListBox();
+                        break;
+
                     default:
                         this.debugwindow.DebugLog = "要求された信号に対応するコマンドが存在しません。リモートホスト側のコネクトの設定を確認してください。";
                         break;
-                }
-                if (isConnect)
-                {
-                    this.connect(ref Port);
-                }
-                else
-                {
-                    this.disconnect(dec.get_int());
-                    try
-                    {
-                        this.terminalconnection.Tcp_Send();
-                    }
-                    catch (Exception ex)
-                    {
-                        debugwindow.DebugLog = "[" + this.ToString() + "]" + ex.Message;
-                    }
                 }
             }
             catch (Exception ex)
