@@ -35,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CIPC_CS">
-      <HintPath>..\..\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll</HintPath>
+      <HintPath>..\..\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll</HintPath>
     </Reference>
     <Reference Include="FPSAdjuster">
-      <HintPath>..\..\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
+      <HintPath>..\..\..\..\Users\ShadowGroup\Dropbox\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -52,15 +52,13 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="UDP_LIVESTREAMING">
-      <HintPath>..\..\udp_lib\UDP_LIVESTREAMING\UDP_LIVESTREAMING\bin\Release\UDP_LIVESTREAMING.dll</HintPath>
+      <HintPath>..\..\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\UDP_LIVESTREAMING.dll</HintPath>
     </Reference>
-    <Reference Include="UDP_PACKETS_CLIANT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\udp_lib\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\bin\Release\UDP_PACKETS_CLIANT.dll</HintPath>
+    <Reference Include="UDP_PACKETS_CLIANT">
+      <HintPath>..\..\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CLIANT.dll</HintPath>
     </Reference>
-    <Reference Include="UDP_PACKETS_CODER, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\udp_lib\UDP_PACKETS_CODER\UDP_PACKETS_CODER\bin\Release\UDP_PACKETS_CODER.dll</HintPath>
+    <Reference Include="UDP_PACKETS_CODER">
+      <HintPath>..\..\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CODER.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />

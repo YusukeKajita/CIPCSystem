@@ -67,7 +67,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FPSAdjuster">
-      <HintPath>..\..\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
+      <HintPath>..\..\..\..\Users\ShadowGroup\Dropbox\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
@@ -85,9 +85,6 @@
     <Reference Include="TerminalConnectionSettings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\TerminalConnectionSettings\bin\Debug\TerminalConnectionSettings.dll</HintPath>
-    </Reference>
-    <Reference Include="UDP_LIVESTREAMING">
-      <HintPath>..\..\udp_lib\UDP_LIVESTREAMING\UDP_LIVESTREAMING\bin\Release\UDP_LIVESTREAMING.dll</HintPath>
     </Reference>
     <Reference Include="UDP_PACKETS_CLIANT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
