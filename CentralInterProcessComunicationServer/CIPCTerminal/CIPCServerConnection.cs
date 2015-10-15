@@ -39,9 +39,13 @@ namespace CIPCTerminal
             //this.receive = new TerminalConnectionSettings.NetworkData(1024);
             //this.send = new TerminalConnectionSettings.NetworkData(1024);
             this.Eventer = new TerminalConnectionSettings.CommandEventer();
-            this.client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("127.0.0.1", 12000, 18000);
             //this.Init_Task();
         }
+
+        private void SettingUDP()
+        {
+            this.client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("127.0.0.1", 12000, 18000);
+        } 
 
         //private void Init_Task()
         //{
