@@ -66,7 +66,7 @@
       <HintPath>..\..\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll</HintPath>
     </Reference>
     <Reference Include="FPSAdjuster">
-      <HintPath>..\..\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
+      <HintPath>..\..\..\..\Users\ShadowGroup\Dropbox\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -79,7 +79,7 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="UDP_PACKETS_CODER">
-      <HintPath>..\..\CIPC_CS\CIPC_CS\bin\Debug\UDP_PACKETS_CODER.dll</HintPath>
+      <HintPath>..\..\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CODER.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
