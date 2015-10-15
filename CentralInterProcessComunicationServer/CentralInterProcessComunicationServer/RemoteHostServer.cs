@@ -211,7 +211,18 @@ namespace CentralInterProcessCommunicationServer
                         string message = dec.get_string();
                         this.debugwindow.DebugLog = "[TerminalConnection]受信:" + message;
                         Eventer.Handle(message);
+                        try
+                        {
+                            this.remoteOperator.sendStatesToAllEP();
+                        }
+                        catch
+                        {
+                            this.debugwindow.DebugLog = "送信できません"; 
+                        }
+                        //mainwindowを毎回追加
                         this.remoteOperator.mainwindow = this.parent;
+                        this.remoteOperator.RHS = this;
+                        this.remoteOperator.DCS = this.parent.DataConnectionServer;
                         this.remoteOperator.addRemoteEP();
                         this.remoteOperator.UpdateListBox();
                         break;

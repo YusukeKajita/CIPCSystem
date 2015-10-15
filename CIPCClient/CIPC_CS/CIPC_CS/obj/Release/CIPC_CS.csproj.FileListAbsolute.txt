@@ -37,3 +37,12 @@ C:\Users\ShadowGroup\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.csprojResolveAs
 C:\Users\ShadowGroup\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.dll
 C:\Users\ShadowGroup\Dropbox\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.pdb
 C:\Users\ShadowGroup\Dropbox\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CODER.dll
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.pdb
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CLIANT.dll
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\UDP_LIVESTREAMING.pdb
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CLIANT.pdb
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\UDP_PACKETS_CODER.pdb
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.csprojResolveAssemblyReference.cache
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.dll
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS\CIPC_CS\obj\Release\CIPC_CS.pdb

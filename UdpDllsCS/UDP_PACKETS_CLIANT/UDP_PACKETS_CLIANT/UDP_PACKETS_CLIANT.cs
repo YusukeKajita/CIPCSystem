@@ -32,6 +32,7 @@ namespace UDP_PACKETS_CLIANT
         #endregion
 
         #region propaty
+        public bool IsRecast { set; get; }
         public byte[] Received_Data 
         {
             get 
@@ -66,7 +67,7 @@ namespace UDP_PACKETS_CLIANT
         {
             set 
             {
-                RemoteEP = value;
+                this.remotehost = value;
             }
             get 
             {
@@ -115,6 +116,7 @@ namespace UDP_PACKETS_CLIANT
 
                 this.udpcliant.BeginReceive(this.ReceiveCallback, this.udpcliant);
                 this.is_conected = true;
+                this.IsRecast = false;
             }
             catch(Exception ex) 
             {
@@ -220,6 +222,11 @@ namespace UDP_PACKETS_CLIANT
             catch (Exception ex)
             {
                 
+                Console.WriteLine(ex.Message);
+                if (this.IsRecast)
+                {
+                    this.udpcliant.BeginReceive(ReceiveCallback, udpcliant);
+                }
             }
         }
 
