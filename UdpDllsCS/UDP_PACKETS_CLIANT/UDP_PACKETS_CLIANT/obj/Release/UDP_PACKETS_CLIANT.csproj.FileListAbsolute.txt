@@ -22,3 +22,8 @@ C:\Users\ShadowGroup\Dropbox\udp_lib\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\bin\R
 C:\Users\ShadowGroup\Dropbox\udp_lib\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Release\UDP_PACKETS_CLIANT.csprojResolveAssemblyReference.cache
 C:\Users\ShadowGroup\Dropbox\udp_lib\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Release\UDP_PACKETS_CLIANT.dll
 C:\Users\ShadowGroup\Dropbox\udp_lib\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Release\UDP_PACKETS_CLIANT.pdb
+C:\workspace\CIPCSystem\UdpDllsCS\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\bin\Release\UDP_PACKETS_CLIANT.dll
+C:\workspace\CIPCSystem\UdpDllsCS\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\bin\Release\UDP_PACKETS_CLIANT.pdb
+C:\workspace\CIPCSystem\UdpDllsCS\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Release\UDP_PACKETS_CLIANT.csprojResolveAssemblyReference.cache
+C:\workspace\CIPCSystem\UdpDllsCS\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Release\UDP_PACKETS_CLIANT.dll
+C:\workspace\CIPCSystem\UdpDllsCS\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\obj\Release\UDP_PACKETS_CLIANT.pdb

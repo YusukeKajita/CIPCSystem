@@ -64,41 +64,6 @@
                     </StackPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="接続進行"  Foreground="White">
-                <StackPanel>
-                    <GroupBox Header="進行状況">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="接続先　IP："/>
-                                <TextBlock x:Name="TextBlock_Process_IPaddress"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="接続先Port："/>
-                                <TextBlock x:Name="TextBlock_Process_Port"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="開始　時刻："/>
-                                <TextBlock x:Name="TextBlock_Process_Time"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="試行　回数："/>
-                                <TextBlock x:Name="TextBlock_Process_Times"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="接続　進行："/>
-                                <TextBlock x:Name="TextBlock_Process_Text"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </GroupBox>
-                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                        <Button x:Name="Button_StopConnect" Content=" 接続停止 " Margin="5" Click="Button_StopConnect_Click"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="説明："/>
-                        <TextBlock x:Name="TextBlock_StateTip"/>
-                    </StackPanel>
-                </StackPanel>
-            </TabItem>
         </TabControl>
         <TextBlock TextWrapping="Wrap" Text="CIPC接続確認枠" Foreground="White" FontSize="14"/>
         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,10" FlowDirection="RightToLeft">

@@ -42,7 +42,7 @@
     </Reference>
     <Reference Include="UDP_PACKETS_CLIANT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\udp_lib\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\bin\Release\UDP_PACKETS_CLIANT.dll</HintPath>
+      <HintPath>..\..\..\UdpDllsCS\UDP_PACKETS_CLIANT\UDP_PACKETS_CLIANT\bin\Release\UDP_PACKETS_CLIANT.dll</HintPath>
     </Reference>
     <Reference Include="UDP_PACKETS_CODER, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

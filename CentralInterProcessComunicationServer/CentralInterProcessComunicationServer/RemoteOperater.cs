@@ -97,6 +97,7 @@ namespace CentralInterProcessCommunicationServer
         {
             try
             {
+                this.Client.IsRecast = true;
                 var tmp = this.Client.RemoteEP;
                 foreach (var p in this.m_SetIPEndPoint)
                 {
@@ -106,6 +107,7 @@ namespace CentralInterProcessCommunicationServer
                     this.Client.Send(enc.data);
                 }
                 this.Client.RemoteEP = tmp;
+
             }
             catch (Exception ex)
             {

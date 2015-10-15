@@ -274,6 +274,14 @@ namespace CIPCTerminal
         {
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
             this.Closing += MainWindow_Closing;
+            this.client.DataReceived += client_DataReceived;
+        }
+
+        void client_DataReceived(object sender, byte[] e)
+        {
+            UDP_PACKETS_CODER.UDP_PACKETS_DECODER dec = new UDP_PACKETS_CODER.UDP_PACKETS_DECODER();
+            dec.Source = e;
+            this.serverconnection.Eventer.Handle(dec.get_string());
         }
 
         /// <summary>
@@ -316,7 +324,7 @@ namespace CIPCTerminal
         /// </summary>
         private void Dispose_Classes()
         {
-            this.serverconnection.Dispose();
+            //this.serverconnection.Dispose();
         }
 
         /// <summary>
@@ -658,19 +666,19 @@ namespace CIPCTerminal
 
         private void Button_Local_CIPCServer_TurnOnSyncConnect_Click(object sender, RoutedEventArgs e)
         {
-            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("127.0.0.1",12000,18000);
             UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            //operation settings
             enc += (int)20;
             enc += (string)(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect()).Data;
-            client.Send(enc.data);
-            client.Close();
+            this.client.Send(enc.data);
+            
             //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect());
             //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
         }
 
         private void Button_Local_CIPCServer_TurnOffSyncConnect_Click(object sender, RoutedEventArgs e)
         {
-            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("192.168.0.8", 12000, 18050);
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("127.0.0.1", 12000, 18050);
             UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
             enc += (int)20;
             enc += (string)(new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect()).Data;
