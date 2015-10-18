@@ -25,12 +25,16 @@ namespace CIPCTerminal
 
         public TerminalConnectionSettings.CommandEventer Eventer { set; get; }
 
+        public bool IsConnectionSetupped { set; get; }
+        public bool IsConnectted { set; get; }
 
         public MainWindow mainwindow { set; get; }
 
         public CIPCServerConnection(TCPConnectWindow window)
         {
             this.Init_Classes(window);
+            this.IsConnectionSetupped = false;
+            this.IsConnectted = false;
         }
 
         private void Init_Classes(TCPConnectWindow window)
@@ -42,10 +46,80 @@ namespace CIPCTerminal
             //this.Init_Task();
         }
 
-        private void SettingUDP()
+        private System.DateTime ReceivedTime;
+
+        public void SetupUDP()
         {
-            this.client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("127.0.0.1", 12000, 18000);
-        } 
+            try
+            {
+                if (!this.IsConnectionSetupped)
+                {
+                    var remoteport = this.window.connectionsetting.remoteport;
+                    var remoteip = this.window.connectionsetting.IsConnectionLocal ? "127.0.0.1" : this.window.connectionsetting.remoteIP;
+                    this.client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(remoteip, int.Parse(remoteport), 18000);
+                    this.client.DataReceived += client_DataReceived;
+                    //ちょっとやそっとのエラーでもがんがん復活するスタイル
+                    this.client.IsRecast = true;
+
+                    this.IsConnectionSetupped = true;
+                    this.mainwindow.dispatchertimer.Tick += this.ConfirmCIPCServer;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        void client_DataReceived(object sender, byte[] e)
+        {
+            UDP_PACKETS_CODER.UDP_PACKETS_DECODER dec = new UDP_PACKETS_CODER.UDP_PACKETS_DECODER();
+            dec.Source = e;
+            this.Eventer.Handle(dec.get_string());
+            this.ReceivedTime = System.DateTime.Now;
+
+        }
+
+        private void ConfirmCIPCServer(object sender, EventArgs e)
+        {
+            this.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            if (System.DateTime.Now - this.ReceivedTime > new System.TimeSpan(0, 0, 2))
+            {
+                this.IsConnectted = false;
+            }
+            else
+            {
+                this.IsConnectted = true;
+            }
+            this.window.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.window.TextBlock_ConnectionState.Text = "CIPCServerIP:" + this.client.RemoteEP.Address.ToString() + "\n"
+                    + "CIPCServerPort:" + this.client.RemoteEP.Port.ToString() + "\n"
+                    + "LastDemandInfoTime:" + System.DateTime.Now.ToString() + "\n"
+                    + "LastReceivedTime:" + this.ReceivedTime.ToString() + "\n"
+                    + "IsCIPCServerLive:" + this.IsConnectted;
+            }));
+        }
+
+
+        public void closeUDP()
+        {
+            try
+            {
+                if (this.IsConnectionSetupped)
+                {
+                    this.client.IsRecast = false;
+                    this.client.Close();
+
+                    this.IsConnectionSetupped = false;
+                    this.mainwindow.dispatchertimer.Tick -= this.ConfirmCIPCServer;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         //private void Init_Task()
         //{
@@ -112,6 +186,27 @@ namespace CIPCTerminal
                 this.debuglog.DebugLogPrint = this.debuglog.DebugLogPrint = "[" + this.ToString() + "]" + ex.Message;
             }
         }
+        public void Udp_Send(TerminalConnectionSettings.TerminalProtocols.CIPCTerminalCommand terminalcommand)
+        {
+            try
+            {
+                if (this.IsConnectionSetupped)
+                {
+                    UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+                    enc += (int)20;
+                    enc += (string)terminalcommand.Data;
+                    this.client.Send(enc.data);
+                }
+                else
+                {
+                    throw new Exception("接続設定をしてください");
+                }
+            }
+            catch (Exception ex)
+            {
+                this.debuglog.DebugLogPrint = this.debuglog.DebugLogPrint = "[" + this.ToString() + "]" + ex.Message;
+            }
+        }
 
         //private void Tcp_Receive()
         //{
@@ -126,7 +221,7 @@ namespace CIPCTerminal
         //private void Setup_in_Task()
         //{
         //    this.Init_tcpclient();
-            
+
         //}
 
         //private void Init_tcpclient()
@@ -193,7 +288,7 @@ namespace CIPCTerminal
         //        catch (Exception ex)
         //        {
         //            this.debuglog.DebugLogPrint = "[" + this.ToString() + "]" + ex.Message;
-                    
+
         //        }
         //    }
         //}
@@ -211,7 +306,7 @@ namespace CIPCTerminal
         //            }
         //            catch (Exception ex) 
         //            {
- 
+
         //            }
         //        }
         //        Thread.Sleep(new TimeSpan(0, 0, 1));

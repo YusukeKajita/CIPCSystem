@@ -60,9 +60,20 @@
                         <Button x:Name="Button_SaveSettings" Content=" 設定保存 " Margin="0,5,5,5" Click="Button_SaveSettings_Click"/>
                         <Button x:Name="Button_LoadSettings" Content=" 設定読込 " Margin="0,5,5,5" Click="Button_LoadSettings_Click"/>
                         <Button x:Name="Button_InitSettings" Content=" 初 期 値 " Margin="0,5,5,5" Click="Button_InitSettings_Click"/>
-                        <Button x:Name="Button_Connect" Content=" 接続開始 " Margin="15,5,5,5" Click="Button_Connect_Click"/>
+                        <Button x:Name="Button_Connect" Content="   接    続   " Margin="15,5,5,5" Click="Button_Connect_Click"/>
                     </StackPanel>
                 </StackPanel>
+            </TabItem>
+            <TabItem Header="状態">
+                <StackPanel>
+                    <GroupBox Header="接続状況" Height="150">
+                        <TextBlock x:Name="TextBlock_ConnectionState" Text="" VerticalAlignment="Top" TextWrapping="Wrap" />
+                    </GroupBox>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <Button Content=" 接続停止 " Margin="5" Click="Button_StopConnect_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
             </TabItem>
         </TabControl>
         <TextBlock TextWrapping="Wrap" Text="CIPC接続確認枠" Foreground="White" FontSize="14"/>

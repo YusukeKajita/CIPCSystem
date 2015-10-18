@@ -30,7 +30,7 @@ namespace CentralInterProcessCommunicationServer
         private const int max_connect_num = 200;
 
         public DebugWindow debugwindow { set; get; }
-        public TerminalConnection.TerminalConnection terminalconnection { set; get; }
+        //public TerminalConnection.TerminalConnection terminalconnection { set; get; }
         public TerminalConnectionSettings.CommandEventer Eventer { set; get; }
         #region server
         /// <summary>
@@ -183,31 +183,20 @@ namespace CentralInterProcessCommunicationServer
                         this.connect(ref Port);
                         isConnect = true;
                         this.id_port = Port;
-                        if (isConnect)
-                        {
-                            this.List_remotehost.Add(new RemoteHost(id_port, this.debugwindow, this.terminalconnection));
-                        }
-                        else
-                        {
-                            this.List_remotehost.RemoveAll(atPort);
-                        }
+                        this.List_remotehost.Add(new RemoteHost(id_port, this.debugwindow/*, this.terminalconnection*/));
                         break;
-
                     case Definitions.CONNECTION_END:
                         this.disconnect(dec.get_int());
                         isConnect = false;
                         this.id_port = Port;
-                        if (isConnect)
-                        {
-                            this.List_remotehost.Add(new RemoteHost(id_port, this.debugwindow, this.terminalconnection));
-                        }
-                        else
-                        {
-                            this.List_remotehost.RemoveAll(atPort);
-                        }
+                        this.List_remotehost.RemoveAll(atPort);
                         break;
-
                     case Definitions.CONNECTION_SERVER_OPERATE:
+                        //mainwindowを毎回追加
+                        this.remoteOperator.mainwindow = this.parent;
+                        this.remoteOperator.RHS = this;
+                        this.remoteOperator.DCS = this.parent.DataConnectionServer;
+                        this.remoteOperator.addRemoteEP();
                         string message = dec.get_string();
                         this.debugwindow.DebugLog = "[TerminalConnection]受信:" + message;
                         Eventer.Handle(message);
@@ -217,13 +206,8 @@ namespace CentralInterProcessCommunicationServer
                         }
                         catch
                         {
-                            this.debugwindow.DebugLog = "送信できません"; 
+                            this.debugwindow.DebugLog = "送信できません";
                         }
-                        //mainwindowを毎回追加
-                        this.remoteOperator.mainwindow = this.parent;
-                        this.remoteOperator.RHS = this;
-                        this.remoteOperator.DCS = this.parent.DataConnectionServer;
-                        this.remoteOperator.addRemoteEP();
                         this.remoteOperator.UpdateListBox();
                         break;
 
@@ -306,7 +290,7 @@ namespace CentralInterProcessCommunicationServer
                 this.LstPort.Remove(port);
                 this.List_remotehost.RemoveAll(check_remotehosts);
 
-                this.terminalconnection.Tcp_Send();
+                this.remoteOperator.sendStatesToAllEP();
             }
             catch (Exception ex)
             {

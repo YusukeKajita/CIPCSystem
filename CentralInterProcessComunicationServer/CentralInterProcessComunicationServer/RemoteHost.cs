@@ -45,7 +45,7 @@ namespace CentralInterProcessCommunicationServer
 
         private FPSAdjuster.FPSAdjuster fpsa;
 
-        public TerminalConnection.TerminalConnection TC { set; get; }
+        //public TerminalConnection.TerminalConnection TC { set; get; }
 
         static Object SyncObject = new object();
 
@@ -210,7 +210,7 @@ namespace CentralInterProcessCommunicationServer
         /// コンストラクタ
         /// </summary>
         /// <param name="localPort">自分のポート</param>
-        public RemoteHost(int localPort, DebugWindow debugwindow, TerminalConnection.TerminalConnection TC)
+        public RemoteHost(int localPort, DebugWindow debugwindow/*, TerminalConnection.TerminalConnection TC*/)
         {
             try
             {
@@ -228,7 +228,7 @@ namespace CentralInterProcessCommunicationServer
                 this.debugwindow = debugwindow;
                 this.debugwindow.DebugLog = "[Port:" + localPort.ToString() + "]受信を開始します";
 
-                this.TC = TC;
+                //this.TC = TC;
             }
             catch (Exception ex)
             {
@@ -263,7 +263,7 @@ namespace CentralInterProcessCommunicationServer
                 
                 try
                 {
-                    this.TC.Tcp_Send();
+                    //this.TC.Tcp_Send();
                 }
                 catch (Exception ex)
                 {

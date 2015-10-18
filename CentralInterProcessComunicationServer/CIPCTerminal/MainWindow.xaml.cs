@@ -274,14 +274,6 @@ namespace CIPCTerminal
         {
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
             this.Closing += MainWindow_Closing;
-            this.client.DataReceived += client_DataReceived;
-        }
-
-        void client_DataReceived(object sender, byte[] e)
-        {
-            UDP_PACKETS_CODER.UDP_PACKETS_DECODER dec = new UDP_PACKETS_CODER.UDP_PACKETS_DECODER();
-            dec.Source = e;
-            this.serverconnection.Eventer.Handle(dec.get_string());
         }
 
         /// <summary>
@@ -631,7 +623,7 @@ namespace CIPCTerminal
         /// <param name="e"></param>
         private void Update_CIPC_Click(object sender, RoutedEventArgs e)
         {
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
         }
         private void Update_LocalCanvas_Click(object sender, RoutedEventArgs e)
         {
@@ -641,51 +633,32 @@ namespace CIPCTerminal
 
         private void Button_Local_CIPCServer_AllDisConnect_Click(object sender, RoutedEventArgs e)
         {
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.AllDisConnect());
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
-
+            this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.AllDisConnect());
         }
 
         private void Button_Local_CIPCServer_SaveConnectionSettings_Click(object sender, RoutedEventArgs e)
         {
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.SaveConnectionFast());
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.SaveConnectionFast());
         }
 
         private void Button_Local_CIPCServer_LoadConnectionSettings_Click(object sender, RoutedEventArgs e)
         {
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.LoadConnectionFast());
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.LoadConnectionFast());
         }
 
         private void Button_Local_CIPCServer_Reboot_Click(object sender, RoutedEventArgs e)
         {
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.Restart());
-            this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.Restart());
         }
 
         private void Button_Local_CIPCServer_TurnOnSyncConnect_Click(object sender, RoutedEventArgs e)
         {
-            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
-            //operation settings
-            enc += (int)20;
-            enc += (string)(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect()).Data;
-            this.client.Send(enc.data);
-            
-            //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect());
-            //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect());
         }
 
         private void Button_Local_CIPCServer_TurnOffSyncConnect_Click(object sender, RoutedEventArgs e)
         {
-            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT("127.0.0.1", 12000, 18050);
-            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
-            enc += (int)20;
-            enc += (string)(new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect()).Data;
-            client.Send(enc.data);
-            //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect());
-            //this.serverconnection.Tcp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
-            client.Close();
+            this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect());
         }
         #region CIPCNetWorkUIEvent
 

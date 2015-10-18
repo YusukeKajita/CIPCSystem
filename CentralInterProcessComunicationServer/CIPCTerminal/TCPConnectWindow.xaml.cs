@@ -91,6 +91,7 @@ namespace CIPCTerminal
             this.IsConnectSetuped = true;
             this.pushedtime = System.DateTime.Now.ToString();
             this.TabControl_CIPCConnection.SelectedIndex = 1;
+            this.mainwindow.serverconnection.SetupUDP();
         }
 
         private void Button_StopConnect_Click(object sender, RoutedEventArgs e)
@@ -103,6 +104,7 @@ namespace CIPCTerminal
             this.StackPanel_ConnectSetting.IsEnabled = true;
             this.IsConnectSetuped = false;
             this.TabControl_CIPCConnection.SelectedIndex = 0;
+            this.mainwindow.serverconnection.closeUDP();
         }
     }
 }

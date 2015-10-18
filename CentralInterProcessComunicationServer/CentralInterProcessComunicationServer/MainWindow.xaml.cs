@@ -45,7 +45,7 @@ namespace CentralInterProcessCommunicationServer
             }
         }
 
-        private TerminalConnection.TerminalConnection TC;
+        //private TerminalConnection.TerminalConnection TC;
         private int old_Num_Port = 0;
         /// <summary>
         /// デバッグ用ウィンドウ　各サーバでこのインスタンスの参照を利用してデバッグに出力する
@@ -97,15 +97,15 @@ namespace CentralInterProcessCommunicationServer
                     this.DCS.debugwindow = this.debugwindow;
                     #endregion
                     #region TerminalConnection
-                    this.TC = new TerminalConnection.TerminalConnection();
-                    this.TC.debugwindow = this.debugwindow;
-                    this.TC.RHS = this.rhServer;
-                    this.TC.DCS = this.DCS;
-                    this.TC.mainwindow = this;
+                    //this.TC = new TerminalConnection.TerminalConnection();
+                    //this.TC.debugwindow = this.debugwindow;
+                    //this.TC.RHS = this.rhServer;
+                    //this.TC.DCS = this.DCS;
+                    //this.TC.mainwindow = this;
                     //this.AddTCFunction();
                     this.AddRemoteOperateFunction();
 
-                    this.rhServer.terminalconnection = this.TC;
+                    //this.rhServer.terminalconnection = this.TC;
                     #endregion
                     #region ProcessList
                     this.List_Processes = new List<System.Diagnostics.Process>();
@@ -140,19 +140,19 @@ namespace CentralInterProcessCommunicationServer
 
         }
 
-        private void AddTCFunction()
-        {
-            this.TC.Eventer.Close += Eventer_Close;
-            this.TC.Eventer.DemmandInfo += Eventer_DemmandInfo;
-            this.TC.Eventer.Restart += Eventer_Restart;
-            this.TC.Eventer.Connect += Eventer_Connect;
-            this.TC.Eventer.DisConnect += Eventer_DisConnect;
-            this.TC.Eventer.AllDisConnect += Eventer_AllDisConnect;
-            this.TC.Eventer.LoadConnectionFast += Eventer_LoadConnectionFast;
-            this.TC.Eventer.SaveConnectionFast += Eventer_SaveConnectionFast;
-            this.TC.Eventer.TurnOnSyncConnect += Eventer_TurnOnSyncConnect;
-            this.TC.Eventer.TurnOffSyncConnect += Eventer_TurnOffSyncConnect;
-        }
+        //private void AddTCFunction()
+        //{
+        //    this.TC.Eventer.Close += Eventer_Close;
+        //    this.TC.Eventer.DemmandInfo += Eventer_DemmandInfo;
+        //    this.TC.Eventer.Restart += Eventer_Restart;
+        //    this.TC.Eventer.Connect += Eventer_Connect;
+        //    this.TC.Eventer.DisConnect += Eventer_DisConnect;
+        //    this.TC.Eventer.AllDisConnect += Eventer_AllDisConnect;
+        //    this.TC.Eventer.LoadConnectionFast += Eventer_LoadConnectionFast;
+        //    this.TC.Eventer.SaveConnectionFast += Eventer_SaveConnectionFast;
+        //    this.TC.Eventer.TurnOnSyncConnect += Eventer_TurnOnSyncConnect;
+        //    this.TC.Eventer.TurnOffSyncConnect += Eventer_TurnOffSyncConnect;
+        //}
 
         private void AddRemoteOperateFunction()
         {
@@ -202,7 +202,7 @@ namespace CentralInterProcessCommunicationServer
         {
             try
             {
-                this.TC.Tcp_Send();
+                this.rhServer.remoteOperator.sendStatesToAllEP();
             }
             catch (Exception ex)
             {
@@ -853,7 +853,8 @@ namespace CentralInterProcessCommunicationServer
 
         private void ConnectionChangeNoticetoTerminal()
         {
-            this.TC.Tcp_Send();
+            //this.TC.Tcp_Send();
+            this.rhServer.remoteOperator.sendStatesToAllEP();
         }
 
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
