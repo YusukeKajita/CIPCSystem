@@ -18,7 +18,7 @@ using System.Threading;
 
 namespace CentralInterProcessCommunicationServer
 {
-    public class RemoteHostServer
+    public class RemoteHostServer: IDisposable
     {
         #region private field
         private UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client;
@@ -340,6 +340,12 @@ namespace CentralInterProcessCommunicationServer
         }
         #endregion
         #endregion
+
+        public void Dispose()
+        {
+            this.client.IsRecast = false;
+            this.client.Close();
+        }
     }
     public class Client
     {

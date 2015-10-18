@@ -322,6 +322,7 @@ namespace CentralInterProcessCommunicationServer
             {
                 this.debugwindow.Close();
                 this.minimizedwindow.Close();
+                this.rhServer.Dispose();
             }
             catch (Exception ex)
             {
