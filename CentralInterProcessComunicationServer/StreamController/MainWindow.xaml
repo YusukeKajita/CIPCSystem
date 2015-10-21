@@ -95,6 +95,11 @@
             <StackPanel Margin="5" Width="240">
                 <GroupBox Header="一括操作" Height="225">
                     <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="タイムスタンプ : "/>
+                            <TextBlock x:Name="TextBlock_TimeStanp"/>
+                        </StackPanel>
+                        <Button x:Name="Button_Reset_Stamp" Content="タイムスタンプリセット" Click="Button_Reset_Stamp_Click"/>
                         <Button x:Name="Button_ALL_REC" Content="全録画開始" Click="Button_ALL_REC_Click"/>
                         <Button x:Name="Button_ALL_START" Content="全再生開始" Click="Button_ALL_START_Click"/>
                         <Button x:Name="Button_ALL_STOP" Content="全停止" Click="Button_ALL_STOP_Click"/>

@@ -31,6 +31,15 @@ namespace StreamController
         public StreamWindowListProvider ListProvider_SW;
         private DispatcherTimer dt;
         private int AutoFileNameNumber;
+        private System.Diagnostics.Stopwatch stopwatch;
+        public System.Diagnostics.Stopwatch Stopwatch
+        {
+            get
+            {
+                return this.stopwatch;
+            }
+        }
+
         #endregion
 
         public MainWindow()
@@ -42,12 +51,15 @@ namespace StreamController
             this.List_SW = new List<StreamWindow>();
             this.ListProvider_SW = new StreamWindowListProvider(this.List_SW, this.ListBox_SW);
             this.ProcessName.Text = "行程名：" + System.Diagnostics.Process.GetCurrentProcess().ProcessName;
+            this.stopwatch = new System.Diagnostics.Stopwatch();
+            this.stopwatch.Start();
             this.dt = new DispatcherTimer(DispatcherPriority.Normal);
             this.dt.Interval = new TimeSpan(0, 0, 1);
             this.dt.Tick += new EventHandler(dispatcherTimer_Tick);
             this.dt.Start();
+
             this.LoadApplicationState();
-            this.Button_NameUpdate_Click(this,new RoutedEventArgs());
+            this.Button_NameUpdate_Click(this, new RoutedEventArgs());
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -57,6 +69,7 @@ namespace StreamController
                 this.CheckStreamWindows();
                 this.LIST_UPDATE();
                 this.FolderListUpdate();
+                this.TextBlock_TimeStanp.Text = this.stopwatch.ElapsedMilliseconds.ToString();
             }
             catch (Exception ex)
             {
@@ -70,7 +83,7 @@ namespace StreamController
             {
                 return;
             }
-            System.IO.DirectoryInfo directory = new System.IO.DirectoryInfo( this.textbox_DirectoryName.Text);
+            System.IO.DirectoryInfo directory = new System.IO.DirectoryInfo(this.textbox_DirectoryName.Text);
             if (!directory.Exists)
             {
                 return;
@@ -367,6 +380,11 @@ namespace StreamController
         private void Button_OpenExproler_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("EXPLORER.EXE", this.textbox_DirectoryName.Text);
+        }
+
+        private void Button_Reset_Stamp_Click(object sender, RoutedEventArgs e)
+        {
+            this.stopwatch.Restart();
         }
 
     }

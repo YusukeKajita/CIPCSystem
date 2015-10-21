@@ -33,7 +33,7 @@ namespace StreamController
         private uint currentframe;
         private BinaryWriter writer;
         private BinaryReader reader;
-        private System.Diagnostics.Stopwatch stopwatch;
+        //private System.Diagnostics.Stopwatch stopwatch;
         #endregion
 
         #region propaties
@@ -150,8 +150,8 @@ namespace StreamController
             try
             {
                 this.cipc.Setup(CIPC_CS.CLIENT.MODE.Receiver);
-                this.stopwatch = new System.Diagnostics.Stopwatch();
-                this.stopwatch.Start();
+                //this.stopwatch = new System.Diagnostics.Stopwatch();
+                //this.stopwatch.Start();
                 this.cipc.DataReceived += cipc_DataReceived;
 
             }
@@ -169,12 +169,15 @@ namespace StreamController
             this.UpdateUI_REC();
         }
 
+        /// <summary>
+        /// 保存形式
+        /// </summary>
         protected virtual void REC_data()
         {
             if (this.IsRecStarted)
             {
                 this.writer.Write((uint)this.currentframe);
-                this.writer.Write((long)this.stopwatch.ElapsedMilliseconds);
+                this.writer.Write((long)this.parent.Stopwatch.ElapsedMilliseconds);
                 this.writer.Write((int)this.data.Length);
                 this.writer.Write(this.data);
             }
