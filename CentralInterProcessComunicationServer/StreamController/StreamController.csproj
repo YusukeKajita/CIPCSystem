@@ -37,9 +37,6 @@
     <Reference Include="CIPC_CS">
       <HintPath>..\..\CIPCClient\CIPC_CS\CIPC_CS\bin\Release\CIPC_CS.dll</HintPath>
     </Reference>
-    <Reference Include="FPSAdjuster">
-      <HintPath>..\..\..\..\Users\ShadowGroup\Dropbox\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -117,6 +114,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FPSAdjuster\FPSAdjuster\FPSAdjuster.csproj">
+      <Project>{3026a57b-2010-4756-935d-6883926e46ed}</Project>
+      <Name>FPSAdjuster</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

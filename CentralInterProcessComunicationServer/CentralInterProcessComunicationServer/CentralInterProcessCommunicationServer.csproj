@@ -66,9 +66,6 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FPSAdjuster">
-      <HintPath>..\..\..\..\Users\ShadowGroup\Dropbox\FPSAdjuster\FPSAdjuster\bin\Release\FPSAdjuster.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -203,6 +200,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FPSAdjuster\FPSAdjuster\FPSAdjuster.csproj">
+      <Project>{3026a57b-2010-4756-935d-6883926e46ed}</Project>
+      <Name>FPSAdjuster</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

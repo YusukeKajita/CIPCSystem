@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentralInterProcessCommunicationServer", "CentralInterProcessComunicationServer\CentralInterProcessCommunicationServer.csproj", "{8CB97B5B-242E-46AF-9278-8D3B97607560}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamAnalyzer", "StreamAnalyzer\StreamAnalyzer.csproj", "{A9F224F7-F36A-46C6-8903-F4A7CC194D39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIPCTerminal", "CIPCTerminal\CIPCTerminal.csproj", "{95104DCE-0668-43F1-A76B-C4C3E6A7399B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPSAdjuster", "..\FPSAdjuster\FPSAdjuster\FPSAdjuster.csproj", "{3026A57B-2010-4756-935D-6883926E46ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{95104DCE-0668-43F1-A76B-C4C3E6A7399B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95104DCE-0668-43F1-A76B-C4C3E6A7399B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95104DCE-0668-43F1-A76B-C4C3E6A7399B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3026A57B-2010-4756-935D-6883926E46ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3026A57B-2010-4756-935D-6883926E46ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3026A57B-2010-4756-935D-6883926E46ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3026A57B-2010-4756-935D-6883926E46ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
