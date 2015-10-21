@@ -624,6 +624,7 @@ namespace CIPCTerminal
         private void Update_CIPC_Click(object sender, RoutedEventArgs e)
         {
             this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+            this.serverconnection.ConfirmCIPCServer();
         }
         private void Update_LocalCanvas_Click(object sender, RoutedEventArgs e)
         {
@@ -634,31 +635,37 @@ namespace CIPCTerminal
         private void Button_Local_CIPCServer_AllDisConnect_Click(object sender, RoutedEventArgs e)
         {
             this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.AllDisConnect());
+            this.serverconnection.ConfirmCIPCServer();
         }
 
         private void Button_Local_CIPCServer_SaveConnectionSettings_Click(object sender, RoutedEventArgs e)
         {
             this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.SaveConnectionFast());
+            this.serverconnection.ConfirmCIPCServer();
         }
 
         private void Button_Local_CIPCServer_LoadConnectionSettings_Click(object sender, RoutedEventArgs e)
         {
             this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.LoadConnectionFast());
+            this.serverconnection.ConfirmCIPCServer();
         }
 
         private void Button_Local_CIPCServer_Reboot_Click(object sender, RoutedEventArgs e)
         {
             this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.Restart());
+            this.serverconnection.ConfirmCIPCServer();
         }
 
         private void Button_Local_CIPCServer_TurnOnSyncConnect_Click(object sender, RoutedEventArgs e)
         {
             this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect());
+            this.serverconnection.ConfirmCIPCServer();
         }
 
         private void Button_Local_CIPCServer_TurnOffSyncConnect_Click(object sender, RoutedEventArgs e)
         {
             this.serverconnection.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect());
+            this.serverconnection.ConfirmCIPCServer();
         }
         #region CIPCNetWorkUIEvent
 

@@ -28,6 +28,8 @@ namespace CIPCTerminal
         public bool IsConnectionSetupped { set; get; }
         public bool IsConnectted { set; get; }
 
+        private System.DateTime ReceivedTime;
+        private System.DateTime SendedTime;
         public MainWindow mainwindow { set; get; }
 
         public CIPCServerConnection(TCPConnectWindow window)
@@ -46,7 +48,6 @@ namespace CIPCTerminal
             //this.Init_Task();
         }
 
-        private System.DateTime ReceivedTime;
 
         public void SetupUDP()
         {
@@ -54,15 +55,16 @@ namespace CIPCTerminal
             {
                 if (!this.IsConnectionSetupped)
                 {
-                    var remoteport = this.window.connectionsetting.remoteport;
+                    var remoteport = this.window.connectionsetting.IsConnectionLocal ? this.window.connectionsetting.localport : this.window.connectionsetting.remoteport;
                     var remoteip = this.window.connectionsetting.IsConnectionLocal ? "127.0.0.1" : this.window.connectionsetting.remoteIP;
                     this.client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(remoteip, int.Parse(remoteport), 18000);
                     this.client.DataReceived += client_DataReceived;
                     //ちょっとやそっとのエラーでもがんがん復活するスタイル
                     this.client.IsRecast = true;
-
+                    
                     this.IsConnectionSetupped = true;
-                    this.mainwindow.dispatchertimer.Tick += this.ConfirmCIPCServer;
+                    this.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
+                    this.ConfirmCIPCServer();
                 }
             }
             catch
@@ -80,10 +82,9 @@ namespace CIPCTerminal
 
         }
 
-        private void ConfirmCIPCServer(object sender, EventArgs e)
+        public void ConfirmCIPCServer()
         {
-            this.Udp_Send(new TerminalConnectionSettings.TerminalProtocols.DemmandInfo());
-            if (System.DateTime.Now - this.ReceivedTime > new System.TimeSpan(0, 0, 2))
+            if (this.ReceivedTime - this.SendedTime > new System.TimeSpan(0, 0, 2))
             {
                 this.IsConnectted = false;
             }
@@ -91,6 +92,8 @@ namespace CIPCTerminal
             {
                 this.IsConnectted = true;
             }
+            this.SendedTime = System.DateTime.Now;
+
             this.window.Dispatcher.BeginInvoke(new Action(() =>
             {
                 this.window.TextBlock_ConnectionState.Text = "CIPCServerIP:" + this.client.RemoteEP.Address.ToString() + "\n"
@@ -112,7 +115,6 @@ namespace CIPCTerminal
                     this.client.Close();
 
                     this.IsConnectionSetupped = false;
-                    this.mainwindow.dispatchertimer.Tick -= this.ConfirmCIPCServer;
                 }
             }
             catch

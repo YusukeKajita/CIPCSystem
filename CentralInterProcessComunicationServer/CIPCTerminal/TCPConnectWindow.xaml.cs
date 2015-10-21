@@ -23,7 +23,7 @@ namespace CIPCTerminal
         public MainWindow mainwindow { set; get; }
 
         public bool IsConnectSetuped { set; get; }
-        public string pushedtime { set; get; }
+        public string pushedtime { set; get; } 
         public TCPConnectWindow()
         {
             InitializeComponent();
