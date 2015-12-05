@@ -63,7 +63,7 @@
                             <GroupBox Header="ファイル名">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBox x:Name="textbox_filename" Text="" Width="150" />
+                                        <TextBox x:Name="textbox_filename" Text="" Width="150" TextChanged="textbox_filename_TextChanged"/>
                                         <TextBlock Text="" x:Name="TextBlock_AutoNumber"/>
                                         <TextBlock Text=".scd"/>
                                     </StackPanel>
@@ -73,7 +73,10 @@
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>
-                            <Button Content="更新" x:Name="Button_NameUpdate" Margin="5" Click="Button_NameUpdate_Click"/>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox x:Name="CheckBox_AutoUpdate" Content="自動更新" IsChecked="True" Foreground="White" VerticalAlignment="Center" />
+                                <Button Content="更新" x:Name="Button_NameUpdate" Margin="5" Click="Button_NameUpdate_Click"/>
+                            </StackPanel>
                             <GroupBox Header="最終出力名">
                                 <StackPanel>
                                     <TextBlock x:Name="TextBox_FinalFileName" TextWrapping="WrapWithOverflow" />
@@ -86,7 +89,7 @@
             </GroupBox>
             <StackPanel Margin="5">
                 <GroupBox Header="クライアントリスト" Width="300" Height="225" >
-                    <ListBox x:Name="ListBox_SW" Foreground="White" Background="Transparent"/>
+                    <ListBox x:Name="ListBox_SW" Foreground="White" Background="Transparent" MouseDoubleClick="ListBox_SW_MouseDoubleClick"/>
                 </GroupBox>
                 <GroupBox Header="フォルダの中身" Width="300" Height="225">
                     <ListBox x:Name="ListBox_FileList" Foreground="White" Background="Transparent"/>

@@ -20,6 +20,7 @@ namespace StreamController
 {
     using fm = System.Windows.Forms;
     using System.Windows.Forms;
+    using System.Text.RegularExpressions;
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
@@ -30,7 +31,6 @@ namespace StreamController
         public List<StreamController.StreamWindow> List_SW;
         public StreamWindowListProvider ListProvider_SW;
         private DispatcherTimer dt;
-        private int AutoFileNameNumber;
         private System.Diagnostics.Stopwatch stopwatch;
         public System.Diagnostics.Stopwatch Stopwatch
         {
@@ -45,7 +45,6 @@ namespace StreamController
         public MainWindow()
         {
             InitializeComponent();
-            this.AutoFileNameNumber = 0;
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
             this.Closing += MainWindow_Closing;
             this.List_SW = new List<StreamWindow>();
@@ -69,6 +68,14 @@ namespace StreamController
                 this.CheckStreamWindows();
                 this.LIST_UPDATE();
                 this.FolderListUpdate();
+                if (this.CheckBox_AutoSetting.IsChecked == true)
+                {
+                    this.TextBlock_AutoNumber.Text = DateTime.Now.ToString("_yy_MM_dd_HH_mm_ss_ff");
+                }
+                if (this.CheckBox_AutoUpdate.IsChecked == true)
+                {
+                    this.Button_NameUpdate_Click(sender,new RoutedEventArgs());
+                }
                 this.TextBlock_TimeStanp.Text = this.stopwatch.ElapsedMilliseconds.ToString();
             }
             catch (Exception ex)
@@ -184,8 +191,6 @@ namespace StreamController
                 sw.Show();
                 this.ListProvider_SW.Refresh();
                 this.textbox_clientmyport.Text = (int.Parse(this.textbox_clientmyport.Text) + 1).ToString();
-                this.AutoFileNameNumber++;
-                this.TextBlock_AutoNumber.Text = this.AutoFileNameNumber.ToString();
                 this.Button_NameUpdate_Click(sender, e);
             }
             catch (Exception ex)
@@ -296,7 +301,7 @@ namespace StreamController
                         p.Button_Click(sender, e);
                     }
                 }
-                this.LIST_UPDATE();
+
             }
             catch (Exception ex)
             {
@@ -328,7 +333,7 @@ namespace StreamController
             if (this.radiobutton_receiver.IsChecked == true)
             {
                 FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
-                folderBrowserDialog1.Description = "ここに説明を書いてください";
+                folderBrowserDialog1.Description = "SelectDirectory";
                 folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.MyComputer;
                 folderBrowserDialog1.SelectedPath = this.textbox_DirectoryName.Text;
                 folderBrowserDialog1.ShowNewFolderButton = true;
@@ -347,14 +352,14 @@ namespace StreamController
 
         private void CheckBox_AutoSetting_Checked(object sender, RoutedEventArgs e)
         {
-            this.TextBlock_AutoNumber.Text = this.AutoFileNameNumber.ToString();
+            
             this.UpdateStatusCaption("Change Auto Mode check");
         }
 
         private void CheckBox_AutoSetting_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.UpdateStatusCaption("Change Auto Mode uncheck");
             this.TextBlock_AutoNumber.Text = "";
+            this.UpdateStatusCaption("Change Auto Mode uncheck");
         }
 
         private void Button_NameUpdate_Click(object sender, RoutedEventArgs e)
@@ -373,8 +378,6 @@ namespace StreamController
 
         private void Button_ResetAutoNum_Click(object sender, RoutedEventArgs e)
         {
-            this.AutoFileNameNumber = 0;
-            this.TextBlock_AutoNumber.Text = this.AutoFileNameNumber.ToString();
             this.UpdateStatusCaption("Reset Auto Number");
         }
 
@@ -419,7 +422,33 @@ namespace StreamController
         private void Button_ALL_RESET_Click(object sender, RoutedEventArgs e)
         {
             this.Button_ALL_STOP_Click(sender, e);
-            this.Button_ALL_STOP_Click(sender, e);
+            
+            try
+            {
+                this.UpdateStatusCaption(this.List_SW.FindAll(k => (!k.IsRecStarted || !k.IsSendStarted)).Count.ToString() + "個のクライアントを終了します");
+                List<StreamWindow> StreamWindowList = new List<StreamWindow>();
+                foreach (var p in this.List_SW)
+                {
+                    if (!p.IsRecStarted || !p.IsSendStarted)
+                    {
+                        var SC = p.SC;
+                        p.Button_Click(sender, e);
+
+                        Thread.Sleep(100);
+                        Regex reg = new Regex("_\\d\\d_\\d\\d_\\d\\d_\\d\\d_\\d\\d_\\d\\d_\\d\\d.scd$");
+                        SC.filename = reg.Replace(SC.filename, DateTime.Now.ToString("_yy_MM_dd_HH_mm_ss_ff") +".scd");
+                        StreamWindow sw = new StreamWindow(this, SC);
+                        StreamWindowList.Add(sw);
+                        sw.Show();
+                    }
+                }
+                this.List_SW.AddRange(StreamWindowList);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -428,30 +457,45 @@ namespace StreamController
             UDP_PACKETS_CODER.UDP_PACKETS_DECODER dec = new UDP_PACKETS_CODER.UDP_PACKETS_DECODER();
             dec.Source = e;
             var str = dec.get_string();
-            switch(str){
+            switch (str)
+            {
                 case "START":
                     this.Button_ALL_REC.Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        this.Button_ALL_REC_Click(this,new RoutedEventArgs());
+                        this.Button_ALL_REC_Click(this, new RoutedEventArgs());
                     }));
                     break;
                 case "STOP":
                     this.Button_ALL_STOP.Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        this.Button_ALL_STOP_Click(this, new RoutedEventArgs());
+                        this.Button_ALL_RESET_Click(this, new RoutedEventArgs());
                     }));
                     break;
                 default:
                     Console.WriteLine("Invalid operation.");
                     break;
             }
-            
+
         }
 
         private void Button_CIPC_Close_Click(object sender, RoutedEventArgs e)
         {
             this.CipcSyncClient.Close();
             this.CipcSyncClient = null;
+        }
+
+        private void textbox_filename_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.textbox_clientname.Text = "SCClient_" + this.textbox_filename.Text;
+        }
+
+        private void ListBox_SW_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (this.ListBox_SW.SelectedIndex < 0)
+            {
+                return;
+            }
+            this.List_SW[this.ListBox_SW.SelectedIndex].Activate();
         }
 
 
