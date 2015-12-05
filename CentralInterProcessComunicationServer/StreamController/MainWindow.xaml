@@ -104,9 +104,29 @@
                         <Button x:Name="Button_ALL_START" Content="全再生開始" Click="Button_ALL_START_Click"/>
                         <Button x:Name="Button_ALL_STOP" Content="全停止" Click="Button_ALL_STOP_Click"/>
                         <Button x:Name="Button_ALL_CLOSE" Content="全終了" Click="Button_ALL_CLOSE_Click"/>
+                        <Button x:Name="Button_ALL_RESTART" Content="全再接続" Click="Button_ALL_RESET_Click" ToolTip="起動しているクライアントをすべて再起動します．このときファイル名は自動で末尾に番号が付加されていきます．"/>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="CIPCTerminal接続" Height="225"/>
+                <GroupBox Header="CIPC接続" Height="225">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="CIPCServer Port" MinWidth="100"/>
+                            <TextBox  x:Name="TextBox_ControlCIPC_remotePort" Text="12000"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="CIPCServer IP" MinWidth="100"/>
+                            <TextBox  x:Name="TextBox_ControlCIPC_remoteIP" Text="127.0.0.1"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="My Port " MinWidth="100"/>
+                            <TextBox  x:Name="TextBox_ControlCIPC_myPort" Text="15151"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="Button_CIPC_Connect" Click="Button_CIPC_Connect_Click" Content="接続" Margin="5" MinWidth="100"/>
+                            <Button  x:Name="Button_CIPC_Close" Click="Button_CIPC_Close_Click" Content="切断" Margin="5" MinWidth="100"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
         </WrapPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2">

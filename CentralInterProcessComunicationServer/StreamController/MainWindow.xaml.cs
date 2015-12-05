@@ -296,6 +296,7 @@ namespace StreamController
                         p.Button_Click(sender, e);
                     }
                 }
+                this.LIST_UPDATE();
             }
             catch (Exception ex)
             {
@@ -385,7 +386,74 @@ namespace StreamController
         private void Button_Reset_Stamp_Click(object sender, RoutedEventArgs e)
         {
             this.stopwatch.Restart();
+            try
+            {
+                this.UpdateStatusCaption(this.List_SW.FindAll(k => k.SC.mode == MODE.Receiver && (k.IsRecStarted || k.IsSendStarted)).Count.ToString() + "個のクライアントの録画・再生を停止し，再接続をします．");
+                foreach (var p in this.List_SW)
+                {
+                    if (p.IsRecStarted || p.IsSendStarted)
+                    {
+                        p.Button_Stop_Click(sender, e);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
+        private CIPC_CS.CLIENT.CLIENT CipcSyncClient;
+        private void Button_CIPC_Connect_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CipcSyncClient != null)
+            {
+                return;
+            }
+            this.CipcSyncClient = new CIPC_CS.CLIENT.CLIENT(int.Parse(this.TextBox_ControlCIPC_myPort.Text), this.TextBox_ControlCIPC_remoteIP.Text, int.Parse(this.TextBox_ControlCIPC_remotePort.Text), "StreamController_SYNCREC", 30);
+            this.CipcSyncClient.Setup(CIPC_CS.CLIENT.MODE.Receiver);
+            this.CipcSyncClient.DataReceived += CipcSyncClient_DataReceived;
+        }
+
+
+        private void Button_ALL_RESET_Click(object sender, RoutedEventArgs e)
+        {
+            this.Button_ALL_STOP_Click(sender, e);
+            this.Button_ALL_STOP_Click(sender, e);
+        }
+
+
+        void CipcSyncClient_DataReceived(object sender, byte[] e)
+        {
+            UDP_PACKETS_CODER.UDP_PACKETS_DECODER dec = new UDP_PACKETS_CODER.UDP_PACKETS_DECODER();
+            dec.Source = e;
+            var str = dec.get_string();
+            switch(str){
+                case "START":
+                    this.Button_ALL_REC.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        this.Button_ALL_REC_Click(this,new RoutedEventArgs());
+                    }));
+                    break;
+                case "STOP":
+                    this.Button_ALL_STOP.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        this.Button_ALL_STOP_Click(this, new RoutedEventArgs());
+                    }));
+                    break;
+                default:
+                    Console.WriteLine("Invalid operation.");
+                    break;
+            }
+            
+        }
+
+        private void Button_CIPC_Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.CipcSyncClient.Close();
+            this.CipcSyncClient = null;
+        }
+
 
     }
 
