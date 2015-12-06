@@ -21,71 +21,73 @@
         </StackPanel>
         <WrapPanel Grid.Row="1">
             <GroupBox Header="クライアント設定" Margin="5" Height="450">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <GroupBox Header="クライアント名"  Width="150" >
-                            <TextBox x:Name="textbox_clientname" Text="StreamController"/>
-                        </GroupBox>
-                        <GroupBox Header="myPort" Width="150">
-                            <TextBox x:Name="textbox_clientmyport" Text="11000" TextAlignment="Right"/>
-                        </GroupBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <GroupBox Header="serverPort" Width="150">
-                            <TextBox x:Name="textbox_serverport" Text="12000" TextAlignment="Right"/>
-                        </GroupBox>
-                        <GroupBox Header="serverIP" Width="150">
-                            <TextBox x:Name="remoteIP" Text="127.0.0.1" TextAlignment="Right"/>
-                        </GroupBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <GroupBox Header="接続モード" Width="150">
-                            <StackPanel Orientation="Horizontal">
-                                <RadioButton x:Name="radiobutton_sender" Content="Sender" Foreground="White"/>
-                                <RadioButton x:Name="radiobutton_receiver" Content="Receiver" Foreground="White" IsChecked="True"/>
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="FPS" Width="150">
-                            <TextBox x:Name="textbox_fps" Text="30" TextAlignment="Right" />
-                        </GroupBox>
-                    </StackPanel>
-                    <GroupBox Header="出・入力先" Width="300">
-                        <StackPanel>
-                            <GroupBox Header="フォルダ">
-                                <StackPanel>
-                                    <TextBox x:Name="textbox_DirectoryName" Text="" TextWrapping="WrapWithOverflow" />
-                                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                                        <Button x:Name="Button_SelectDirectory" Content="選択" Click="Button_SelectDirectory_Click" Width="75"/>
-                                        <Button Content="　フォルダを開く　" x:Name="Button_OpenExproler" Click="Button_OpenExproler_Click"/>
-                                    </StackPanel>
-                                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="クライアント名"  Width="150" >
+                                <TextBox x:Name="textbox_clientname" Text="StreamController"/>
                             </GroupBox>
-                            <GroupBox Header="ファイル名">
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox x:Name="textbox_filename" Text="" Width="150" TextChanged="textbox_filename_TextChanged"/>
-                                        <TextBlock Text="" x:Name="TextBlock_AutoNumber"/>
-                                        <TextBlock Text=".scd"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox VerticalAlignment="Center" x:Name="CheckBox_AutoSetting" IsChecked="True" Content="数字の自動追加" Foreground="White" Checked="CheckBox_AutoSetting_Checked" Unchecked="CheckBox_AutoSetting_Unchecked"/>
-                                        <Button x:Name="Button_ResetAutoNum" Content="リセット" Margin="10,0,10,0" Click="Button_ResetAutoNum_Click"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox x:Name="CheckBox_AutoUpdate" Content="自動更新" IsChecked="True" Foreground="White" VerticalAlignment="Center" />
-                                <Button Content="更新" x:Name="Button_NameUpdate" Margin="5" Click="Button_NameUpdate_Click"/>
-                            </StackPanel>
-                            <GroupBox Header="最終出力名">
-                                <StackPanel>
-                                    <TextBlock x:Name="TextBox_FinalFileName" TextWrapping="WrapWithOverflow" />
-                                </StackPanel>
+                            <GroupBox Header="myPort" Width="150">
+                                <TextBox x:Name="textbox_clientmyport" Text="11000" TextAlignment="Right"/>
                             </GroupBox>
                         </StackPanel>
-                    </GroupBox>
-                    <Button x:Name="StreamWindowLunchButton" Content="起動" Click="StreamWindowLunchButton_Click"  Margin="10" Height="30"/>
-                </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="serverPort" Width="150">
+                                <TextBox x:Name="textbox_serverport" Text="12000" TextAlignment="Right"/>
+                            </GroupBox>
+                            <GroupBox Header="serverIP" Width="150">
+                                <TextBox x:Name="remoteIP" Text="127.0.0.1" TextAlignment="Right"/>
+                            </GroupBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="接続モード" Width="150">
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton x:Name="radiobutton_sender" Content="Sender" Foreground="White"/>
+                                    <RadioButton x:Name="radiobutton_receiver" Content="Receiver" Foreground="White" IsChecked="True"/>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="FPS" Width="150">
+                                <TextBox x:Name="textbox_fps" Text="30" TextAlignment="Right" />
+                            </GroupBox>
+                        </StackPanel>
+                        <GroupBox Header="出・入力先" Width="300">
+                            <StackPanel>
+                                <GroupBox Header="フォルダ">
+                                    <StackPanel>
+                                        <TextBox x:Name="textbox_DirectoryName" Text="" TextWrapping="WrapWithOverflow" />
+                                        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                                            <Button x:Name="Button_SelectDirectory" Content="選択" Click="Button_SelectDirectory_Click" Width="75"/>
+                                            <Button Content="　フォルダを開く　" x:Name="Button_OpenExproler" Click="Button_OpenExproler_Click"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="ファイル名">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox x:Name="textbox_filename" Text="" Width="150" TextChanged="textbox_filename_TextChanged"/>
+                                            <TextBlock Text="" x:Name="TextBlock_AutoNumber"/>
+                                            <TextBlock Text=".scd"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox VerticalAlignment="Center" x:Name="CheckBox_AutoSetting" IsChecked="True" Content="数字の自動追加" Foreground="White" Checked="CheckBox_AutoSetting_Checked" Unchecked="CheckBox_AutoSetting_Unchecked"/>
+                                            <Button x:Name="Button_ResetAutoNum" Content="リセット" Margin="10,0,10,0" Click="Button_ResetAutoNum_Click"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="CheckBox_AutoUpdate" Content="自動更新" IsChecked="True" Foreground="White" VerticalAlignment="Center" />
+                                    <Button Content="更新" x:Name="Button_NameUpdate" Margin="5" Click="Button_NameUpdate_Click"/>
+                                </StackPanel>
+                                <GroupBox Header="最終出力名">
+                                    <StackPanel>
+                                        <TextBlock x:Name="TextBox_FinalFileName" TextWrapping="WrapWithOverflow" />
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </GroupBox>
+                        <Button x:Name="StreamWindowLunchButton" Content="起動" Click="StreamWindowLunchButton_Click"  Margin="10" Height="30"/>
+                    </StackPanel>
+                </ScrollViewer>
             </GroupBox>
             <StackPanel Margin="5">
                 <GroupBox Header="クライアントリスト" Width="300" Height="225" >
