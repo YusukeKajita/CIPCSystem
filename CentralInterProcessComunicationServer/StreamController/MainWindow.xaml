@@ -29,33 +29,33 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <GroupBox Header="クライアント名"  Width="150" >
+                            <GroupBox Header="クライアント名" >
                                 <TextBox x:Name="textbox_clientname" Text="StreamController"/>
                             </GroupBox>
-                            <GroupBox Header="myPort" Width="150">
+                            <GroupBox Header="myPort" >
                                 <TextBox x:Name="textbox_clientmyport" Text="11000" TextAlignment="Right"/>
                             </GroupBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <GroupBox Header="serverPort" Width="150">
+                            <GroupBox Header="serverPort" >
                                 <TextBox x:Name="textbox_serverport" Text="12000" TextAlignment="Right"/>
                             </GroupBox>
-                            <GroupBox Header="serverIP" Width="150">
+                            <GroupBox Header="serverIP" >
                                 <TextBox x:Name="remoteIP" Text="127.0.0.1" TextAlignment="Right"/>
                             </GroupBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <GroupBox Header="接続モード" Width="150">
+                            <GroupBox Header="接続モード" >
                                 <StackPanel Orientation="Horizontal">
                                     <RadioButton x:Name="radiobutton_sender" Content="Sender" Foreground="White"/>
                                     <RadioButton x:Name="radiobutton_receiver" Content="Receiver" Foreground="White" IsChecked="True"/>
                                 </StackPanel>
                             </GroupBox>
-                            <GroupBox Header="FPS" Width="150">
+                            <GroupBox Header="FPS" >
                                 <TextBox x:Name="textbox_fps" Text="30" TextAlignment="Right" />
                             </GroupBox>
                         </StackPanel>
-                        <GroupBox Header="出・入力先" Width="300">
+                        <GroupBox Header="出・入力先" >
                             <StackPanel>
                                 <GroupBox Header="フォルダ">
                                     <StackPanel>
