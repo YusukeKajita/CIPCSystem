@@ -167,8 +167,6 @@ namespace ArduinoCommunication
                 this.serialport = new System.IO.Ports.SerialPort("COM" + this.TextBox_PPMS_COMPORT.Text, int.Parse(this.TextBox_PPMS_BaudRate.Text), System.IO.Ports.Parity.None, 8, System.IO.Ports.StopBits.One);
                 this.serialport.Encoding = Encoding.ASCII;
                
-                byte[] endsign = {170,255};
-                this.serialport.NewLine = Encoding.ASCII.GetString(endsign,0,1);
                 this.serialport.Open();
 
                 this.fps = new FPSAdjuster.FPSAdjuster();
