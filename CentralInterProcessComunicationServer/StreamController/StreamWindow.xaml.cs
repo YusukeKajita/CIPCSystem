@@ -53,17 +53,17 @@ namespace StreamController
         {
             InitializeComponent();
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
-            
+
         }
 
-        
+
         /// <summary>
         /// オーバーロードコンストラクタ
         /// 各種設定を追加
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="name"></param>
-        public StreamWindow(MainWindow parent, StreamClient SC) 
+        public StreamWindow(MainWindow parent, StreamClient SC)
         {
             try
             {
@@ -217,10 +217,7 @@ namespace StreamController
                     if (this.IsSendStarted)
                     {
                         this.cipc.Update(ref this.data);
-                    }
-                    this.UpdateUI_VIEW();
-                    if (this.IsSendStarted)
-                    {
+                        this.UpdateUI_VIEW();
                         switch (this.sendFpsMode)
                         {
                             case SendFpsMode.appointFps:
@@ -281,8 +278,8 @@ namespace StreamController
         {
             this.Dispatcher.BeginInvoke(new Action(() =>
             {
-                
-                
+
+
                 this.textblock_nowtime.Text = "現在時刻：" + DateTime.Now.ToString();
                 this.textblock_states.Text = "状　　態：送信" + this.IsSendStarted;
                 if (this.IsSendStarted)
@@ -334,7 +331,7 @@ namespace StreamController
             }
             catch (Exception ex)
             {
-                
+
             }
             try
             {
