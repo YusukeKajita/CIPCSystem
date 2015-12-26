@@ -463,6 +463,7 @@ namespace StreamController
                     this.Button_ALL_REC.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         this.Button_ALL_REC_Click(this, new RoutedEventArgs());
+                        this.Button_ALL_START_Click(this, new RoutedEventArgs());
                     }));
                     break;
                 case "STOP":
