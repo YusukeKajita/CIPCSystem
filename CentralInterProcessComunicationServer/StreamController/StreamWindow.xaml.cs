@@ -219,14 +219,17 @@ namespace StreamController
                         this.cipc.Update(ref this.data);
                     }
                     this.UpdateUI_VIEW();
-                    switch (this.sendFpsMode)
+                    if (this.IsSendStarted)
                     {
-                        case SendFpsMode.appointFps:
-                            this.Fps_cipc.Adjust();
-                            break;
-                        case SendFpsMode.ExactlyTime:
-                            this.ExactlyTimeFpsAdjust();
-                            break;
+                        switch (this.sendFpsMode)
+                        {
+                            case SendFpsMode.appointFps:
+                                this.Fps_cipc.Adjust();
+                                break;
+                            case SendFpsMode.ExactlyTime:
+                                this.ExactlyTimeFpsAdjust();
+                                break;
+                        }
                     }
                 }
             }
