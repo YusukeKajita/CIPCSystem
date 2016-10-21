@@ -10,15 +10,22 @@ namespace CentralInterProcessCommunicationServer
     {
         public HashSet<System.Net.IPEndPoint> m_SetIPEndPoint;
         public UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT Client { private set; get; }
-        public DATA_CONNECTION.DataConnectionServer DCS { set; get; }
+        public DATA_CONNECTION.DataConnectionServer DCS
+        {
+            get
+            {
+                return mainwindow.DataConnectionServer;
+            }
+        }
         public RemoteHostServer RHS { set; get; }
         public MainWindow mainwindow { set; get; }
         public DebugWindow debugwindow { set; get; }
 
-        public RemoteOperater(UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client)
+        public RemoteOperater(UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client, RemoteHostServer RHS, MainWindow parent)
         {
             m_SetIPEndPoint = new HashSet<System.Net.IPEndPoint>();
-
+            this.RHS = RHS;
+            this.mainwindow = parent;
             this.Client = client;
         }
 

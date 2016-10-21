@@ -30,17 +30,10 @@ namespace CentralInterProcessCommunicationServer
             }
             catch (Exception ex)
             {
-                while (true)
-                {
-                    myDialog dialog = new myDialog(ex.Message);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        break;
-                    }
-                }
+                myDialog dialog = new myDialog(ex.Message);
             }
         }
-        
+
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
