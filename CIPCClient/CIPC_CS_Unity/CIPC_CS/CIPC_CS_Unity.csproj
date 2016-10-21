@@ -38,6 +38,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TerminalConnectionSettings">
+      <HintPath>..\..\..\CentralInterProcessComunicationServer\TerminalConnectionSettings\bin\Release\TerminalConnectionSettings.dll</HintPath>
+    </Reference>
     <Reference Include="UDP_PACKETS_CLIANT_Unity">
       <HintPath>..\..\udp_lib\UDP_PACKETS_CLIANT_Unity\UDP_PACKETS_CLIANT\bin\Release\UDP_PACKETS_CLIANT_Unity.dll</HintPath>
     </Reference>

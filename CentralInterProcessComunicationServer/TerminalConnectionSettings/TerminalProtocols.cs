@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TerminalConnectionSettings.TerminalProtocols
 {
@@ -40,6 +39,24 @@ namespace TerminalConnectionSettings.TerminalProtocols
     }
 
     /// <summary>
+    /// 二つのポートを指定しその接続設定を追加する要求
+    /// </summary>
+    public class ConnectByName : CIPCTerminalCommand
+    {
+        public string SenderName;
+        public string ReceiverName;
+        public ConnectByName(string SenderName, string ReceiverName)
+        {
+            base.terminalcommand = TerminalCommand.ConnectByName;
+            this.SenderName = SenderName;
+            this.ReceiverName = ReceiverName;
+
+            base.Addterminalaction_to_Data();
+            base.data += this.SenderName + "\\" + this.ReceiverName + "\\";
+        }
+    }
+
+    /// <summary>
     /// 二つのポートを指定しその接続設定を削除する要求
     /// </summary>
     public class DisConnect : CIPCTerminalCommand
@@ -54,6 +71,24 @@ namespace TerminalConnectionSettings.TerminalProtocols
 
             base.Addterminalaction_to_Data();
             base.data += this.SenderPort.ToString() + "\\" + this.ReceiverPort.ToString() + "\\";
+        }
+    }
+
+    /// <summary>
+    /// 二つの名前を指定しその接続設定を削除する要求
+    /// </summary>
+    public class DisConnectByName : CIPCTerminalCommand
+    {
+        public string SenderName;
+        public string ReceiverName;
+        public DisConnectByName(string SenderName, string ReceiverName)
+        {
+            base.terminalcommand = TerminalCommand.DisConnectByName;
+            this.SenderName = SenderName;
+            this.ReceiverName = ReceiverName;
+
+            base.Addterminalaction_to_Data();
+            base.data += this.SenderName + "\\" + this.ReceiverName + "\\";
         }
     }
 

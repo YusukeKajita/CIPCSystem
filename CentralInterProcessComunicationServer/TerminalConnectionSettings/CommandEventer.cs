@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TerminalConnectionSettings
 {
@@ -19,12 +18,25 @@ namespace TerminalConnectionSettings
         {
             if (this.Connect != null) { this.Connect(this, e); }
         }
+        public delegate void ConnectByNameEventHandler(object sender, TerminalProtocols.ConnectByName e);
+        public event ConnectByNameEventHandler ConnectByName;
+        protected virtual void OnConnectByName(TerminalProtocols.ConnectByName e)
+        {
+            if (this.ConnectByName != null) { this.ConnectByName(this, e); }
+        }
 
         public delegate void DisConnectEventHandler(object sender, TerminalProtocols.DisConnect e);
         public event DisConnectEventHandler DisConnect;
         protected virtual void OnDisConnect(TerminalProtocols.DisConnect e)
         {
             if (this.DisConnect != null) { this.DisConnect(this, e); }
+        }
+
+        public delegate void DisConnectByNameEventHandler(object sender, TerminalProtocols.DisConnectByName e);
+        public event DisConnectByNameEventHandler DisConnectByName;
+        protected virtual void OnDisConnectByName(TerminalProtocols.DisConnectByName e)
+        {
+            if (this.DisConnectByName != null) { this.DisConnectByName(this, e); }
         }
 
         public delegate void CloseEventHandler(object sender, TerminalProtocols.Close e);
@@ -133,9 +145,17 @@ namespace TerminalConnectionSettings
                     {
                         this.OnConnect(new TerminalProtocols.Connect(int.Parse(srg[2]), int.Parse(srg[3])));
                     }
+                    else if (srg[1] == TerminalCommand.ConnectByName.ToString())
+                    {
+                        this.OnConnectByName(new TerminalProtocols.ConnectByName(srg[2], srg[3]));
+                    }
                     else if (srg[1] == TerminalCommand.DisConnect.ToString())
                     {
                         this.OnDisConnect(new TerminalProtocols.DisConnect(int.Parse(srg[2]), int.Parse(srg[3])));
+                    }
+                    else if (srg[1] == TerminalCommand.DisConnectByName.ToString())
+                    {
+                        this.OnDisConnectByName(new TerminalProtocols.DisConnectByName(srg[2], srg[3]));
                     }
                     else if (srg[1] == TerminalCommand.Close.ToString())
                     {

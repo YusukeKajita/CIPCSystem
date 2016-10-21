@@ -11,12 +11,12 @@ namespace CIPC_CS_Unity.CLIENT
     {
         #region constructer
         public CLIENT()
-            : base(SETTINGS.MyInfo.Port,SETTINGS.RemoteExchangeServer.IP, SETTINGS.RemoteExchangeServer.Port,SETTINGS.MyInfo.Name, SETTINGS.MyInfo.fps)
+            : base(SETTINGS.MyInfo.Port, SETTINGS.RemoteExchangeServer.IP, SETTINGS.RemoteExchangeServer.Port, SETTINGS.MyInfo.Name, SETTINGS.MyInfo.fps)
         {
         }
 
         public CLIENT(int myPort, string remoteIP, int serverPort)
-            :base(myPort,remoteIP,serverPort,SETTINGS.MyInfo.Name, SETTINGS.MyInfo.fps)
+            : base(myPort, remoteIP, serverPort, SETTINGS.MyInfo.Name, SETTINGS.MyInfo.fps)
         {
         }
         public CLIENT(int myPort, string remoteIP, int serverPort, string name, int fps)
@@ -24,18 +24,19 @@ namespace CIPC_CS_Unity.CLIENT
         {
 
         }
-        ~CLIENT() 
+        ~CLIENT()
         {
             try
             {
                 this.Close();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
 
             }
         }
 
-        
+
         #endregion
 
 
@@ -105,7 +106,7 @@ namespace CIPC_CS_Unity.CLIENT
             {
 
             }
-            else 
+            else
             {
 
             }
@@ -117,70 +118,64 @@ namespace CIPC_CS_Unity.CLIENT
         #region Static Method
         public static void Connect(int SenderID, int ReceiverID, string RemoteIP, int RemotePort, int myPort)
         {
-            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
-            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
-            enc += (int)5;
-            enc += SenderID;
-            enc += ReceiverID;
 
-            client.Send(enc.data);
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            Udp_Send(client, new TerminalConnectionSettings.TerminalProtocols.Connect(SenderID, ReceiverID));
             client.Close();
         }
-        public static void ConnectByServerPort(int SenderServerPort, int ReceiverServerPort, string RemoteIP, int RemotePort, int myPort)
+        public static void ConnectByClientName(string SenderClientName, string ReceiverClientName, string RemoteIP, int RemotePort, int myPort)
         {
             UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
-            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
-            enc += (int)11;
-            enc += SenderServerPort;
-            enc += ReceiverServerPort;
-
-            client.Send(enc.data);
+            Udp_Send(client, new TerminalConnectionSettings.TerminalProtocols.DisConnectByName(SenderClientName, ReceiverClientName));
             client.Close();
         }
-        public static void ConnectByUserPort(int SenderUserPort, int ReceiverUserPort, string RemoteIP, int RemotePort, int myPort)
-        {
-            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
-            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
-            enc += (int)13;
-            enc += SenderUserPort;
-            enc += ReceiverUserPort;
-
-            client.Send(enc.data);
-            client.Close();
-        }
-
+        
         public static void Disconnect(int SenderID, int ReceiverID, string RemoteIP, int RemotePort, int myPort)
         {
             UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
-            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
-            enc += (int)6;
-            enc += SenderID;
-            enc += ReceiverID;
-
-            client.Send(enc.data);
+            Udp_Send(client, new TerminalConnectionSettings.TerminalProtocols.DisConnect(SenderID, ReceiverID));
             client.Close();
         }
-        public static void DisconnectByServerPort(int SenderServerPort, int ReceiverServerPort, string RemoteIP, int RemotePort, int myPort)
+        public static void DisconnectByClientName(string SenderClientName, string ReceiverClientName, string RemoteIP, int RemotePort, int myPort)
         {
             UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
-            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
-            enc += (int)12;
-            enc += SenderServerPort;
-            enc += ReceiverServerPort;
-
-            client.Send(enc.data);
+            Udp_Send(client, new TerminalConnectionSettings.TerminalProtocols.DisConnectByName(SenderClientName, ReceiverClientName));
             client.Close();
         }
-        public static void DisconnectByUserPort(int SenderUserPort, int ReceiverUserPort, string RemoteIP, int RemotePort, int myPort)
+
+        public static void AllDisconnect(string RemoteIP, int RemotePort, int myPort)
         {
             UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
-            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
-            enc += (int)14;
-            enc += SenderUserPort;
-            enc += ReceiverUserPort;
-
-            client.Send(enc.data);
+            Udp_Send(client, new TerminalConnectionSettings.TerminalProtocols.AllDisConnect());
             client.Close();
+        }
+        public static void TurnOffSyncConnect(string RemoteIP, int RemotePort, int myPort)
+        {
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            Udp_Send(client, new TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect());
+            client.Close();
+        }
+        public static void TurnOnSyncConnect(string RemoteIP, int RemotePort, int myPort)
+        {
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            Udp_Send(client, new TerminalConnectionSettings.TerminalProtocols.TurnOnSyncConnect());
+            client.Close();
+        }
+
+        public static void Udp_Send(UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client, TerminalConnectionSettings.TerminalProtocols.CIPCTerminalCommand terminalcommand)
+        {
+            try
+            {
+                UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+                enc += (int)20;
+                enc += (string)terminalcommand.Data;
+                client.Send(enc.data);
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         #endregion
 

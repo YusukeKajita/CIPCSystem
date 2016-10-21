@@ -160,12 +160,34 @@ namespace CentralInterProcessCommunicationServer
             this.rhServer.Eventer.DemmandInfo += Eventer_DemmandInfo;
             this.rhServer.Eventer.Restart += Eventer_Restart;
             this.rhServer.Eventer.Connect += Eventer_Connect;
+            this.rhServer.Eventer.ConnectByName += Eventer_ConnectByName;
             this.rhServer.Eventer.DisConnect += Eventer_DisConnect;
+            this.rhServer.Eventer.DisConnectByName += Eventer_DisConnectByName;
             this.rhServer.Eventer.AllDisConnect += Eventer_AllDisConnect;
             this.rhServer.Eventer.LoadConnectionFast += Eventer_LoadConnectionFast;
             this.rhServer.Eventer.SaveConnectionFast += Eventer_SaveConnectionFast;
             this.rhServer.Eventer.TurnOnSyncConnect += Eventer_TurnOnSyncConnect;
             this.rhServer.Eventer.TurnOffSyncConnect += Eventer_TurnOffSyncConnect;
+        }
+
+        private void Eventer_DisConnectByName(object sender, TerminalConnectionSettings.TerminalProtocols.DisConnectByName e)
+        {
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.DCS.delete_connection(this.rhServer.List_RemoteHost.Find(p => p.Name == e.SenderName), this.rhServer.List_RemoteHost.Find(p => p.Name == e.ReceiverName));
+                this.DCS.ListBox_update(this.LISTBOX_DATA_CONNECTION);
+                this.ConnectionChangeNoticetoTerminal();
+            }));
+        }
+
+        private void Eventer_ConnectByName(object sender, TerminalConnectionSettings.TerminalProtocols.ConnectByName e)
+        {
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.DCS.add_connection(this.rhServer.List_RemoteHost.Find(p => p.Name == e.SenderName), this.rhServer.List_RemoteHost.Find( p => p.Name == e.ReceiverName ), this.CheckBox_IsSyncReceived.IsChecked == true ? true : false);
+                this.DCS.ListBox_update(this.LISTBOX_DATA_CONNECTION);
+                this.ConnectionChangeNoticetoTerminal();
+            }));
         }
 
         void Eventer_TurnOffSyncConnect(object sender, TerminalConnectionSettings.TerminalProtocols.TurnOffSyncConnect e)

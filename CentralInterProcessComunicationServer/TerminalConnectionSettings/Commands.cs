@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TerminalConnectionSettings
 {
@@ -15,7 +14,9 @@ namespace TerminalConnectionSettings
     public enum TerminalCommand
     {
         Connect,
+        ConnectByName,
         DisConnect,
+        DisConnectByName,
         DemandInfo,
         Close,
         Restart,
