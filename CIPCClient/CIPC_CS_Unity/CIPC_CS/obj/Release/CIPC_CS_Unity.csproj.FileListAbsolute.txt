@@ -16,3 +16,10 @@ C:\Users\ShadowGroup\Dropbox\CIPC_CS_Unity\CIPC_CS\bin\Release\UDP_PACKETS_CODER
 C:\Users\ShadowGroup\Dropbox\CIPC_CS_Unity\CIPC_CS\obj\Release\CIPC_CS_Unity.csprojResolveAssemblyReference.cache
 C:\Users\ShadowGroup\Dropbox\CIPC_CS_Unity\CIPC_CS\obj\Release\CIPC_CS_Unity.dll
 C:\Users\ShadowGroup\Dropbox\CIPC_CS_Unity\CIPC_CS\obj\Release\CIPC_CS_Unity.pdb
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS_Unity\CIPC_CS\bin\Release\CIPC_CS_Unity.dll
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS_Unity\CIPC_CS\bin\Release\CIPC_CS_Unity.pdb
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS_Unity\CIPC_CS\bin\Release\UDP_PACKETS_CLIANT_Unity.pdb
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS_Unity\CIPC_CS\bin\Release\UDP_PACKETS_CODER_Unity.pdb
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS_Unity\CIPC_CS\obj\Release\CIPC_CS_Unity.csprojResolveAssemblyReference.cache
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS_Unity\CIPC_CS\obj\Release\CIPC_CS_Unity.dll
+C:\workspace\CIPCSystem\CIPCClient\CIPC_CS_Unity\CIPC_CS\obj\Release\CIPC_CS_Unity.pdb

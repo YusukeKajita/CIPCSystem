@@ -114,6 +114,75 @@ namespace CIPC_CS_Unity.CLIENT
         }
         #endregion
 
+        #region Static Method
+        public static void Connect(int SenderID, int ReceiverID, string RemoteIP, int RemotePort, int myPort)
+        {
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            enc += (int)5;
+            enc += SenderID;
+            enc += ReceiverID;
+
+            client.Send(enc.data);
+            client.Close();
+        }
+        public static void ConnectByServerPort(int SenderServerPort, int ReceiverServerPort, string RemoteIP, int RemotePort, int myPort)
+        {
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            enc += (int)11;
+            enc += SenderServerPort;
+            enc += ReceiverServerPort;
+
+            client.Send(enc.data);
+            client.Close();
+        }
+        public static void ConnectByUserPort(int SenderUserPort, int ReceiverUserPort, string RemoteIP, int RemotePort, int myPort)
+        {
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            enc += (int)13;
+            enc += SenderUserPort;
+            enc += ReceiverUserPort;
+
+            client.Send(enc.data);
+            client.Close();
+        }
+
+        public static void Disconnect(int SenderID, int ReceiverID, string RemoteIP, int RemotePort, int myPort)
+        {
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            enc += (int)6;
+            enc += SenderID;
+            enc += ReceiverID;
+
+            client.Send(enc.data);
+            client.Close();
+        }
+        public static void DisconnectByServerPort(int SenderServerPort, int ReceiverServerPort, string RemoteIP, int RemotePort, int myPort)
+        {
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            enc += (int)12;
+            enc += SenderServerPort;
+            enc += ReceiverServerPort;
+
+            client.Send(enc.data);
+            client.Close();
+        }
+        public static void DisconnectByUserPort(int SenderUserPort, int ReceiverUserPort, string RemoteIP, int RemotePort, int myPort)
+        {
+            UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(RemoteIP, RemotePort, myPort);
+            UDP_PACKETS_CODER.UDP_PACKETS_ENCODER enc = new UDP_PACKETS_CODER.UDP_PACKETS_ENCODER();
+            enc += (int)14;
+            enc += SenderUserPort;
+            enc += ReceiverUserPort;
+
+            client.Send(enc.data);
+            client.Close();
+        }
+        #endregion
 
     };
 }
