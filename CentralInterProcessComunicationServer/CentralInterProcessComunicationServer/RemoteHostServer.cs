@@ -18,7 +18,7 @@ using System.Threading;
 
 namespace CentralInterProcessCommunicationServer
 {
-    public class RemoteHostServer: IDisposable
+    public class RemoteHostServer : IDisposable
     {
         #region private field
         private UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT client;
@@ -82,13 +82,15 @@ namespace CentralInterProcessCommunicationServer
         #endregion
 
         #region constructer
-        public RemoteHostServer()
+        public RemoteHostServer(MainWindow mainwindow) 
         {
+            this.parent = mainwindow;
+        
             try
             {
                 this.Eventer = new TerminalConnectionSettings.CommandEventer();
                 client = new UDP_PACKETS_CLIANT.UDP_PACKETS_CLIANT(myPort);
-                this.remoteOperator = new RemoteOperater(client);
+                this.remoteOperator = new RemoteOperater(client, this, mainwindow);
             }
             catch (Exception ex)
             {
@@ -194,8 +196,8 @@ namespace CentralInterProcessCommunicationServer
                     case Definitions.CONNECTION_SERVER_OPERATE:
                         //mainwindowを毎回追加
                         this.remoteOperator.mainwindow = this.parent;
-                        this.remoteOperator.RHS = this;
-                        this.remoteOperator.DCS = this.parent.DataConnectionServer;
+                        //this.remoteOperator.RHS = this;
+                        //this.remoteOperator.DCS = this.parent.DataConnectionServer;
                         this.remoteOperator.addRemoteEP();
                         string message = dec.get_string();
                         this.debugwindow.DebugLog = "[TerminalConnection]受信:" + message;
