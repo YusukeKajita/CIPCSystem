@@ -89,7 +89,7 @@ namespace CentralInterProcessCommunicationServer
                     this.minimizedwindow.mainwindow = this;
                     #endregion
                     #region RemoteHostServer
-                    this.rhServer = new RemoteHostServer();
+                    this.rhServer = new RemoteHostServer(this);
                     this.rhServer.debugwindow = this.debugwindow;
                     #endregion
                     #region DataConnectionServer

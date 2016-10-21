@@ -40,14 +40,17 @@
                         <Button x:Name="Button_Stop" Content="停止" Margin="0,0,10,10" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="66" Click="Button_Stop_Click"/>
 
                         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="113" Margin="10,10,0,0" VerticalAlignment="Top" Width="226" CornerRadius="3">
-                            <StackPanel>
-                                <TextBlock x:Name="textblock_starttime" TextWrapping="Wrap" Text="開始時刻："/>
-                                <TextBlock x:Name="textblock_nowtime" TextWrapping="Wrap" Text="現在時刻："/>
-                                <TextBlock x:Name="textblock_passedtime" TextWrapping="Wrap" Text="経過時間："/>
-                                <TextBlock x:Name="textblock_nowfram" TextWrapping="Wrap" Text="フレーム："/>
-                                <TextBlock x:Name="textblock_states" TextWrapping="Wrap" Text="状　　態："/>
-                                <TextBlock x:Name="textblock_remaintime" TextWrapping="Wrap"><Run Text="残り時間："/><Run Language="ja-jp" Text="未実装"/></TextBlock>
-                            </StackPanel>
+                            <ScrollViewer>
+                                <StackPanel>
+                                    <TextBlock x:Name="textblock_starttime" TextWrapping="Wrap" Text="開始時刻："/>
+                                    <TextBlock x:Name="textblock_nowtime" TextWrapping="Wrap" Text="現在時刻："/>
+                                    <TextBlock x:Name="textblock_passedtime" TextWrapping="Wrap" Text="経過時間："/>
+                                    <TextBlock x:Name="textblock_nowfram" TextWrapping="Wrap" Text="フレーム："/>
+                                    <TextBlock x:Name="textblock_states" TextWrapping="Wrap" Text="状　　態："/>
+                                    <TextBlock x:Name="textblock_remaintime" TextWrapping="Wrap"><Run Text="残り時間："/><Run Language="ja-jp" Text="未実装"/></TextBlock>
+                                    <CheckBox x:Name="Checkbox_ExactlyTime" Content="精密データ送信モード" Foreground="White" Unchecked="Checkbox_ExactlyTime_Unchecked" Checked="Checkbox_ExactlyTime_Checked"/>
+                                </StackPanel>
+                            </ScrollViewer>
                         </Border>
                         <ProgressBar x:Name="progressbar_datastream" HorizontalAlignment="Left" Height="10" Margin="10,133,0,0" VerticalAlignment="Top" Width="226" Foreground="#FF0015E6" Background="Black"/>
                     </Grid>

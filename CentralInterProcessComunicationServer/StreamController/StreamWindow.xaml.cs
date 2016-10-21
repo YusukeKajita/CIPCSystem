@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Diagnostics;
 
 
 namespace StreamController
@@ -52,17 +53,17 @@ namespace StreamController
         {
             InitializeComponent();
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
-            
+
         }
 
-        
+
         /// <summary>
         /// オーバーロードコンストラクタ
         /// 各種設定を追加
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="name"></param>
-        public StreamWindow(MainWindow parent, StreamClient SC) 
+        public StreamWindow(MainWindow parent, StreamClient SC)
         {
             try
             {
@@ -216,14 +217,35 @@ namespace StreamController
                     if (this.IsSendStarted)
                     {
                         this.cipc.Update(ref this.data);
+                        this.UpdateUI_VIEW();
+                        switch (this.sendFpsMode)
+                        {
+                            case SendFpsMode.appointFps:
+                                this.Fps_cipc.Adjust();
+                                break;
+                            case SendFpsMode.ExactlyTime:
+                                this.ExactlyTimeFpsAdjust();
+                                break;
+                        }
                     }
-                    this.UpdateUI_VIEW();
-                    this.Fps_cipc.Adjust();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + this.ToString());
+            }
+        }
+
+        private void ExactlyTimeFpsAdjust()
+        {
+            double delta_Data = this.currentTime_Data - this.sendStartTime_Data;
+            double delta_Now = this.currentTime_Now - this.sendStartTime_Now;
+
+            while (delta_Now < delta_Data)
+            {
+                System.Threading.Thread.Sleep(0);
+                this.currentTime_Now = this.parent.Stopwatch.ElapsedMilliseconds;
+                delta_Now = this.currentTime_Now - this.sendStartTime_Now;
             }
         }
 
@@ -234,7 +256,15 @@ namespace StreamController
                 try
                 {
                     this.currentframe = this.reader.ReadUInt32();
-                    this.reader.ReadInt64();
+                    this.currentTime_Data = this.reader.ReadInt64();
+                    this.currentTime_Now = this.parent.Stopwatch.ElapsedMilliseconds;
+                    if (!this.hasSendStartTime)
+                    {
+                        this.sendStartTime_Data = this.currentTime_Data;
+                        this.sendStartTime_Now = this.parent.Stopwatch.ElapsedMilliseconds;
+                        this.hasSendStartTime = true;
+                    }
+
                     this.data = this.reader.ReadBytes(this.reader.ReadInt32());
                 }
                 catch (Exception ex)
@@ -248,8 +278,8 @@ namespace StreamController
         {
             this.Dispatcher.BeginInvoke(new Action(() =>
             {
-                
-                
+
+
                 this.textblock_nowtime.Text = "現在時刻：" + DateTime.Now.ToString();
                 this.textblock_states.Text = "状　　態：送信" + this.IsSendStarted;
                 if (this.IsSendStarted)
@@ -301,7 +331,7 @@ namespace StreamController
             }
             catch (Exception ex)
             {
-                
+
             }
             try
             {
@@ -345,5 +375,27 @@ namespace StreamController
             this.finish();
         }
         #endregion
+
+        public bool hasSendStartTime { get; set; }
+        public long sendStartTime_Data { get; set; }
+        public long currentTime_Data { get; set; }
+        public long sendStartTime_Now { get; set; }
+        public long currentTime_Now { get; set; }
+        public enum SendFpsMode
+        {
+            ExactlyTime,
+            appointFps
+        }
+        public SendFpsMode sendFpsMode = SendFpsMode.appointFps;
+
+        private void Checkbox_ExactlyTime_Checked(object sender, RoutedEventArgs e)
+        {
+            this.sendFpsMode = SendFpsMode.ExactlyTime;
+        }
+
+        private void Checkbox_ExactlyTime_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.sendFpsMode = SendFpsMode.appointFps;
+        }
     }
 }
