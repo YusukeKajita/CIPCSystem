@@ -102,7 +102,7 @@ namespace CIPC
 			//Updateで実行される関数。Receiverのとき実行される。dataheaderを追加するときはここに追記する。
 			virtual void Receive(std::vector<unsigned char>& data)
 			{
-				this->udp_client->Send('\0', 1);
+				this->udp_client->Send("a", 1);
 				data = this->udp_client->Receive();
 			}
 			//Setupで実行される関数。Senderの接続確認および初期通信に使用

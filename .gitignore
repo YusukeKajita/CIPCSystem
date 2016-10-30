@@ -6,3 +6,5 @@ release/
 debug/
 publish/
 
+/CIPCClient/CIPC_Cpp/makeDllProject/CIPCClient_cpp.opensdf
+/CIPCClient/CIPC_Cpp/makeDllProject/CIPCClient_cpp.sdf

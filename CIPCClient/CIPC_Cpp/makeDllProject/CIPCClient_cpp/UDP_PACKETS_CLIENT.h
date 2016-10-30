@@ -178,7 +178,6 @@ namespace UDP_PACKETS_CODER
 		SOCKET mysock;
 		sockaddr_in sockAddrIn;
 		sockaddr_in remotesock;
-		sockaddr_in remotesock2;
 		int remotesocksize;
 		bool b_connect;
 		bool isClosed;
